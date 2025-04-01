@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signup_page"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <!-- Page Title -->
+    <TextView
+        android:id="@+id/signup_app_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="65dp"
+        android:fontFamily="serif-monospace"
+        android:text="Create Account"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintDimensionRatio="5:1.5"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Name Field -->
+    <EditText
+        android:id="@+id/signup_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint=" Enter Full Name"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:drawableStart="@drawable/baseline_person_24"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/signup_app_title"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="32dp" />
+
+    <!-- Phone Field -->
+    <EditText
+        android:id="@+id/signup_phone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint=" Enter Phone Number"
+        android:inputType="phone"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:drawableStart="@drawable/baseline_phone_24"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/signup_name"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="32dp" />
+
+    <!-- Email Field -->
+    <EditText
+        android:id="@+id/signup_email"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint=" Enter Email Address"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:drawableStart="@drawable/baseline_attach_email_24"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/signup_phone"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="32dp" />
+
+    <!-- Password Field -->
+    <EditText
+        android:id="@+id/signup_password"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint=" Enter Password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:drawableStart="@drawable/baseline_lock_24"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/signup_email"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="32dp" />
+
+    <!-- Confirm Password Field -->
+    <EditText
+        android:id="@+id/signup_confirm_password"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint=" Confirm Password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:drawableStart="@drawable/baseline_lock_24"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/signup_password"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="32dp" />
+
+    <!-- Signup Button -->
+    <Button
+        android:id="@+id/signup_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="90dp"
+        android:background="@drawable/button_bg"
+        android:text="SIGN UP"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        app:layout_constraintDimensionRatio="5.4:1.3"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/signup_confirm_password" />
+
+    <!-- Login Redirect Option -->
+    <Button
+        android:id="@+id/login_redirect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/redirectbuttons_bg"
+        android:text="Already have an account? Login"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/signup_button"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

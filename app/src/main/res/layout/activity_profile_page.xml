@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile_page"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.02"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.98"/>
+
+    <LinearLayout
+        android:id="@+id/profilePageActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/homeBackButton"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:background="@color/white"/>
+
+        <TextView
+            android:id="@+id/brandHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:paddingHorizontal="10dp"
+            android:text="MY PROFILE"
+            android:textSize="20sp"
+            android:fontFamily="serif-monospace"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:gravity="center_vertical"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/userImage"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="190dp"
+        android:src="@drawable/baseline_person_24"
+        android:background="@drawable/profile_image"
+        app:layout_constraintTop_toBottomOf="@id/profilePageActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text=" Name"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:drawableStart="@drawable/baseline_person_24"
+        android:gravity="center_vertical"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/userImage"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="22dp" />
+
+    <TextView
+        android:id="@+id/profile_phone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text=" Contact"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:drawableStart="@drawable/baseline_phone_24"
+        android:gravity="center_vertical"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/profile_name"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="22dp" />
+
+    <!-- Email Field -->
+    <TextView
+        android:id="@+id/profile_email"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text=" Email Address"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:drawableStart="@drawable/baseline_attach_email_24"
+        android:gravity="center_vertical"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/profile_phone"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="22dp" />
+
+    <TextView
+        android:id="@+id/profile_currentBookings"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text=" Current Bookings: "
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:gravity="center_vertical"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/profile_email"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="22dp" />
+
+    <TextView
+        android:id="@+id/profile_previousBookings"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text=" Previous Bookings: "
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:gravity="center_vertical"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/profile_currentBookings"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="22dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

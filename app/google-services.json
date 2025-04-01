@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "77748885280",
+    "project_id": "leaseproject-51d7a",
+    "storage_bucket": "leaseproject-51d7a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77748885280:android:fc6af042080740a4bae945",
+        "android_client_info": {
+          "package_name": "com.example.lease_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaopCHEOQ69HD1wi52AHcg_R853hT5gSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    tools:context=".tryfile">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.01" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.99" />
+
+    <LinearLayout
+        android:id="@+id/dateTimeBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:background="@color/white"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:paddingEnd="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Date and Time"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/pickupDate"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="20dp"
+        android:text="Pickup Date"
+        android:textSize="16sp"
+        android:background="@drawable/rentplans_default_background"
+        app:layout_constraintDimensionRatio="3.5:1"
+        app:layout_constraintEnd_toStartOf="@+id/returnDate"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/dateTimeBar" />
+
+    <Button
+        android:id="@+id/returnDate"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="20dp"
+        android:text="Return Date"
+        android:textSize="16sp"
+        android:background="@drawable/rentplans_default_background"
+        app:layout_constraintDimensionRatio="3.5:1"
+        app:layout_constraintStart_toEndOf="@id/pickupDate"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/dateTimeBar" />
+
+    <CalendarView
+        android:id="@+id/pickupCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="@color/white"
+        app:layout_constraintDimensionRatio="1:0.8"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/pickupDate"
+        />
+
+    <TextView
+        android:id="@+id/calendarText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="15dp"
+        android:text="Calendar"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:background="@drawable/radio_button_default"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/pickupCalendar"
+        />
+
+    <TextView
+        android:id="@+id/pickupDateText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="15dp"
+        android:paddingStart="5dp"
+        android:text="Pickup\nDate"
+        android:textSize="14sp"
+        android:background="@drawable/radio_button_default"
+        android:backgroundTint="@color/white"
+        android:gravity="center_vertical"
+        app:layout_constraintDimensionRatio="3.3:1"
+        app:layout_constraintEnd_toStartOf="@+id/returnDate"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/calendarText" />
+
+    <TextView
+        android:id="@+id/returnDateText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="15dp"
+        android:paddingStart="5dp"
+        android:text="Return\nDate"
+        android:textSize="14sp"
+        android:background="@drawable/radio_button_default"
+        android:backgroundTint="@color/white"
+        android:gravity="center_vertical"
+        app:layout_constraintDimensionRatio="3.3:1"
+        app:layout_constraintStart_toEndOf="@id/pickupDate"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/calendarText" />
+
+    <TextView
+        android:id="@+id/daysCount"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="25dp"
+        android:paddingVertical="10dp"
+        android:paddingStart="20dp"
+        android:text="Total Days : "
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:background="@drawable/radio_button_default"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
+        app:layout_constraintBottom_toTopOf="@+id/cost"
+        />
+
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="30dp"
+        android:paddingVertical="10dp"
+        android:paddingStart="20dp"
+        android:text="Total Cost : "
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:background="@drawable/radio_button_default"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
+        app:layout_constraintBottom_toTopOf="@+id/pickupButton"
+        />
+
+    <Button
+        android:id="@+id/pickupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/brands_btn_bg"
+        android:text="PickUp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
