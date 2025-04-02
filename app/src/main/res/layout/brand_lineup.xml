@@ -1,88 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="2dp"
+    android:layout_marginHorizontal="7dp"
     android:layout_marginVertical="5dp"
-    android:background="@color/grey">
+    app:cardCornerRadius="10dp"
+    android:padding="2dp"
+    android:background="@color/grey"
+    android:paddingVertical="10dp">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/brandCarCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginVertical="5dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingVertical="10dp"
+        >
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/carImage"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:layout_marginHorizontal="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bmw_ix1"
+            android:elevation="10dp"
+            app:layout_constraintEnd_toEndOf="@id/brandCarCard"
+            app:layout_constraintStart_toStartOf="@id/brandCarCard"
+            app:layout_constraintTop_toTopOf="@id/brandCarCard"
+            />
+
+        <TextView
+            android:id="@+id/carName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:text="BMW iX1 LWB"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/brandCarCard"
+            app:layout_constraintEnd_toEndOf="@id/brandCarCard"
+            app:layout_constraintTop_toBottomOf="@id/carImage" />
 
-            <ImageView
-                android:id="@+id/carImage"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="@color/white"
-                android:scaleType="fitCenter"
-                android:src="@drawable/bmw_ix1" />
+        <TextView
+            android:id="@+id/carDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="10dp"
+            android:text="Electric  |  Automatic  |  5-Seater"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/carName" />
 
-            <TextView
-                android:id="@+id/carName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingStart="10dp"
-                android:text="BMW iX1 LWB"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/btnDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:text="Details"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:background="@drawable/button_bg"
+            app:layout_constraintEnd_toEndOf="@id/brandCarCard"
+            app:layout_constraintTop_toBottomOf="@id/carDetails"
+            app:layout_constraintStart_toEndOf="@id/btnRentNow"
+            />
 
-            <TextView
-                android:id="@+id/carDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:paddingStart="10dp"
-                android:text="Electric  |  Automatic  |  5-Seater"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="14sp" />
+        <TextView
+            android:id="@+id/btnRentNow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:text="Rent Now"
+            android:textSize="17sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:background="@drawable/button_bg"
+            app:layout_constraintStart_toStartOf="@id/brandCarCard"
+            app:layout_constraintTop_toBottomOf="@id/carDetails"
+            app:layout_constraintEnd_toStartOf="@id/btnDetails"
+            app:layout_constraintBottom_toBottomOf="@id/brandCarCard"
+            />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <Button
-                    android:id="@+id/btnRentNow"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="7dp"
-                    android:layout_marginStart="5dp"
-                    android:text="RENT NOW"
-                    android:background="@drawable/brands_btn_bg"
-                    android:textColor="@android:color/white"/>
-
-                <Button
-                    android:id="@+id/btnDetails"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="7dp"
-                    android:layout_marginEnd="5dp"
-                    android:text="DETAIL"
-                    android:background="@drawable/brands_btn_bg"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="8dp" />
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

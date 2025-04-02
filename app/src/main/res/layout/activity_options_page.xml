@@ -5,6 +5,108 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Options_page">
+    tools:context=".Options_page"
+    >
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.02"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.98"/>
+
+    <LinearLayout
+        android:id="@+id/optionsPageActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/backToHome"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:background="@color/grey"/>
+
+        <TextView
+            android:id="@+id/brandHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="50dp"
+            android:paddingHorizontal="20dp"
+            android:text="OPTIONS"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="serif-monospace"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:paddingStart="30dp"
+        android:layout_marginHorizontal="10dp"
+        android:text="My Profile"
+        android:textSize="18sp"
+        android:textAlignment="viewStart"
+        android:background="@drawable/input_background"
+        android:drawableEnd="@drawable/baseline_arrow_right_24"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/optionsPageActionBar"
+        />
+
+    <Button
+        android:id="@+id/aboutUsButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingStart="30dp"
+        android:layout_marginHorizontal="10dp"
+        android:text="About US"
+        android:textSize="18sp"
+        android:textAlignment="viewStart"
+        android:background="@drawable/input_background"
+        android:drawableEnd="@drawable/baseline_arrow_right_24"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/profileButton"
+        />
+
+    <Button
+        android:id="@+id/termsButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingStart="30dp"
+        android:layout_marginHorizontal="10dp"
+        android:text="Terms and Conditions"
+        android:textSize="18sp"
+        android:textAlignment="viewStart"
+        android:background="@drawable/input_background"
+        android:drawableEnd="@drawable/baseline_arrow_right_24"
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
+        app:layout_constraintTop_toBottomOf="@id/aboutUsButton"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

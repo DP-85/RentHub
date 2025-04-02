@@ -95,9 +95,9 @@ public class brandLineup_adapter extends RecyclerView.Adapter<brandLineup_adapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView carnames, cardetails;
+        TextView carnames, cardetails, detailButton;
         ImageView carImage;
-        Button detailButton;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

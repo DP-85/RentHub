@@ -42,7 +42,6 @@ public class home_page extends AppCompatActivity {
 
         optionsButton = findViewById(R.id.optionsButton);
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -71,7 +70,7 @@ public class home_page extends AppCompatActivity {
         volvo.setOnClickListener(view -> openBrandLineup("Volvo"));
         mercedes.setOnClickListener(view -> openBrandLineup("Mercedes"));
 
-        profileButton.setOnClickListener(new View.OnClickListener() {
+        optionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(home_page.this, Options_page.class);

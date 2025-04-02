@@ -26,7 +26,7 @@
         android:id="@+id/dateTimeBar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/white"
+        android:background="@color/grey"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,6 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
-            android:background="@color/white"
             android:src="@drawable/baseline_arrow_back_24" />
 
         <TextView
@@ -51,11 +50,12 @@
             android:gravity="center"
             android:text="Date and Time"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="serif-monospace"
             />
 
     </LinearLayout>
-
 
     <Button
         android:id="@+id/pickupDate"
