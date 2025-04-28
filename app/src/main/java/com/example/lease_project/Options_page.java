@@ -40,5 +40,12 @@ public class Options_page extends AppCompatActivity {
             Intent p = new Intent(Options_page.this, Profile_page.class);
             startActivity(p);
         });
+
+        Button termsButton = findViewById(R.id.termsButton); // Make sure this button exists in XML
+
+        termsButton.setOnClickListener(view -> {
+            Intent I = new Intent(Options_page.this, Terms_Page.class);
+            startActivity(I);
+        });
     }
 }

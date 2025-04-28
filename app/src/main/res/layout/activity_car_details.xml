@@ -8,46 +8,59 @@
     tools:context=".Car_Details"
     android:background="@color/grey">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/car_detail_bar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/grey"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:backgroundTint="@color/white"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:background="@color/white"
-            android:src="@drawable/baseline_arrow_back_24" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:layout_marginStart="58dp"
-            android:text="Rent Hub"
-            android:fontFamily="@font/loversquarrelregular"
-            android:textSize="45sp"
-            android:textColor="@color/black"
-            android:textStyle="italic"
-            />
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"
+                android:src="@drawable/baseline_arrow_back_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/loversquarrelregular"
+                android:paddingHorizontal="10dp"
+                android:text="Rent Hub"
+                android:textColor="@color/black"
+                android:textSize="45sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toStartOf="@+id/detailsHomeRedirect"
+                app:layout_constraintStart_toEndOf="@+id/backButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/detailsHomeRedirect"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:src="@drawable/baseline_home_filled_24"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/carImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginTop="-2dp"
         android:background="@color/white"
         android:paddingHorizontal="10dp"
         android:scaleType="fitCenter"
@@ -65,7 +78,7 @@
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/poppinsbold"
         android:background="@drawable/car_detailcard_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,106 +88,147 @@
         android:id="@+id/specs_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppinsbold"
         android:paddingStart="15dp"
         android:text="SPECS"
-        android:textSize="18sp"
-        android:textStyle="bold"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/carName"/>
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/carName" />
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/specsContainer1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintDimensionRatio="5.3:1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/specs_header">
 
-        <TextView
-            android:id="@+id/car_detail_engine"
-            android:layout_width="117dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/car_detailspec_bg"
-            android:gravity="center"
-            android:paddingHorizontal="10dp"
-            android:text="Engine\n2938 cc"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="10dp"
+            android:background="@color/grey">
 
-        <TextView
-            android:id="@+id/car_detail_seating"
-            android:layout_width="117dp"
-            android:layout_height="60dp"
-            android:drawableStart="@drawable/baseline_airline_seat_recline_extra_24"
-            android:background="@drawable/car_detailspec_bg"
-            android:gravity="center"
-            android:paddingHorizontal="10dp"
-            android:text="Seating\n5 Seater"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/car_detail_engine"
+                android:layout_width="105dp"
+                android:layout_height="50dp"
+                android:background="@drawable/car_detailspec_bg"
+                android:drawableStart="@drawable/iconsengine24"
+                android:drawableTint="@color/lightblack"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="Engine\n2938 cc"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/car_detail_seating"
+                app:layout_constraintHorizontal_chainStyle="packed" />
 
-        <TextView
-            android:id="@+id/car_detail_speed"
-            android:layout_width="117dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="5dp"
-            android:drawableStart="@drawable/baseline_speed_24"
-            android:background="@drawable/car_detailspec_bg"
-            android:gravity="center"
-            android:paddingHorizontal="10dp"
-            android:text="Max Speed\n207 km/h"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/car_detail_seating"
+                android:layout_width="105dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="7dp"
+                android:background="@drawable/car_detailspec_bg"
+                android:drawableStart="@drawable/baseline_airline_seat_recline_extra_24"
+                android:drawableTint="@color/lightblack"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="Seating\n5 Seater"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/car_detail_engine"
+                app:layout_constraintEnd_toStartOf="@id/car_detail_speed"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/car_detail_speed"
+                android:layout_width="105dp"
+                android:layout_height="50dp"
+                android:background="@drawable/car_detailspec_bg"
+                android:drawableStart="@drawable/baseline_speed_24"
+                android:drawableTint="@color/lightblack"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="Max Speed\n207 km/h"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/car_detail_seating"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/specsContainer2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintDimensionRatio="5.3:1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/specsContainer1">
 
-        <TextView
-            android:id="@+id/car_detail_transmission"
-            android:layout_width="135dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/car_detailspec_bg"
-            android:drawableStart="@drawable/baseline_gear_24"
-            android:gravity="center"
-            android:paddingHorizontal="10dp"
-            android:text="Transmission\nAutomatic"
-            android:textSize="11sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="10dp"
+            android:background="@color/grey">
 
-        <TextView
-            android:id="@+id/car_detail_fuelType"
-            android:layout_width="135dp"
-            android:layout_height="60dp"
-            android:background="@drawable/car_detailspec_bg"
-            android:drawableStart="@drawable/baseline_fuel_24"
-            android:gravity="center"
-            android:paddingHorizontal="10dp"
-            android:text="Fuel Type\nPetrol"
-            android:textSize="11sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/car_detail_transmission"
+                android:layout_width="123dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/car_detailspec_bg"
+                android:drawableStart="@drawable/baseline_gear_24"
+                android:drawableTint="@color/lightblack"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="Transmission\nAutomatic"
+                android:textColor="@color/black"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/car_detail_fuelType"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/car_detail_fuelType"
+                android:layout_width="123dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/car_detailspec_bg"
+                android:drawableStart="@drawable/baseline_fuel_24"
+                android:drawableTint="@color/lightblack"
+                android:fontFamily="@font/poppinsregular"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="Fuel Type\nPetrol"
+                android:textColor="@color/black"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/car_detail_transmission"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/contract_header"
@@ -182,17 +236,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:paddingStart="15dp"
-        android:text="CONTRACT"
-        android:textSize="18sp"
+        android:text="CONTRACTS"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/black"
+        android:fontFamily="@font/poppinsbold"
         app:layout_constraintTop_toBottomOf="@id/specsContainer2"/>
 
     <HorizontalScrollView
         android:id="@+id/fuelTypeScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="-1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contract_header">
@@ -202,13 +257,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="8dp"
+            android:padding="3dp"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/contract_header">
 
             <RadioButton
                 android:id="@+id/petrolButton"
-                android:layout_width="160dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:paddingVertical="10dp"
@@ -217,12 +272,13 @@
                 android:textAlignment="center"
                 android:background="@drawable/car_detailspec_bg"
                 android:textColor="@color/black"
+                android:fontFamily="@font/poppinsregular"
                 android:button="@null"
                 />
 
             <RadioButton
                 android:id="@+id/dieselButton"
-                android:layout_width="160dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:text="Diesel"
@@ -231,11 +287,12 @@
                 android:background="@drawable/car_detailspec_bg"
                 android:textColor="@color/black"
                 android:button="@null"
-                android:paddingVertical="10dp"/>
+                android:paddingVertical="10dp"
+                android:fontFamily="@font/poppinsregular"/>
 
             <RadioButton
                 android:id="@+id/hybridButton"
-                android:layout_width="160dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:text="Hybrid"
@@ -244,12 +301,12 @@
                 android:background="@drawable/car_detailspec_bg"
                 android:textColor="@color/black"
                 android:button="@null"
-                android:paddingVertical="10dp"/>
+                android:paddingVertical="10dp"
+                android:fontFamily="@font/poppinsregular"/>
         </RadioGroup>
 
     </HorizontalScrollView>
 
-    <!-- First Plan -->
     <androidx.cardview.widget.CardView
         android:id="@+id/plan1"
         android:layout_width="0dp"
@@ -290,13 +347,13 @@
                     android:layout_height="wrap_content"
                     android:text=" None\n Day"
                     android:textStyle="bold"
-                    android:textSize="15sp"/>
+                    android:textSize="11sp"
+                    android:fontFamily="@font/poppinsregular"/>
 
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Second Plan -->
     <androidx.cardview.widget.CardView
         android:id="@+id/plan2"
         android:layout_width="0dp"
@@ -337,7 +394,8 @@
                     android:layout_height="wrap_content"
                     android:text=" None\n Week"
                     android:textStyle="bold"
-                    android:textSize="15sp"/>
+                    android:textSize="11sp"
+                    android:fontFamily="@font/poppinsregular"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -385,7 +443,8 @@
                     android:layout_height="wrap_content"
                     android:text=" None\n Month"
                     android:textStyle="bold"
-                    android:textSize="15sp"/>
+                    android:textSize="11sp"
+                    android:fontFamily="@font/poppinsregular"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -430,9 +489,10 @@
                     android:id="@+id/customPlan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" None\n Plan"
+                    android:text=" Custom\n Plan"
                     android:textStyle="bold"
-                    android:textSize="15sp"/>
+                    android:textSize="11sp"
+                    android:fontFamily="@font/poppinsregular"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -452,6 +512,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!-- 
+    ORIGINAL MEASUREMENTS 
+    
+    SPECS CONTAINER1: 119, 60
+    SPECS CONTAINER2: 135, 60
+    CARD LAYOUT TEXT: 15SP
+-->
+
+
 

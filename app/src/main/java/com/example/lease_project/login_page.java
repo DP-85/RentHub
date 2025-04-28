@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class login_page extends AppCompatActivity {
 
     EditText login_email, login_password;
-    Button login_redirect, login_button, forgot_password;
+    Button signup_redirect, login_button, forgot_password;
     FirebaseAuth fauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +36,22 @@ public class login_page extends AppCompatActivity {
 
         login_email = findViewById(R.id.login_username);
         login_password = findViewById(R.id.login_password);
-        login_redirect = findViewById(R.id.signup_redirect);
+        signup_redirect = findViewById(R.id.signup_redirect);
         login_button = findViewById(R.id.login_button);
         forgot_password = findViewById(R.id.forgot_password);
 
         fauth = FirebaseAuth.getInstance();
 
+        //Ignore this bit
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        signup_redirect.setOnClickListener(view -> {
+            Intent sp = new Intent(login_page.this, signup_page.class);
+            startActivity(sp);
         });
 
         login_button.setOnClickListener(new View.OnClickListener() {
@@ -84,14 +90,6 @@ public class login_page extends AppCompatActivity {
             }
         });
 
-        login_redirect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent signup_page = new Intent(login_page.this, signup_page.class);
-                startActivity(signup_page);
-            }
-        });
-
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +120,6 @@ public class login_page extends AppCompatActivity {
                 passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 });
 

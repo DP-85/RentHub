@@ -41,6 +41,9 @@ public class extrasPage extends AppCompatActivity {
 
         homeButton = findViewById(R.id.homeButton);
 
+        String pickupdate = getIntent().getStringExtra("pickupDate");
+        String returndate = getIntent().getStringExtra("returnDate");
+
         setLayoutClickListener(extra1, 1);
         setLayoutClickListener(extra2, 2);
         setLayoutClickListener(extra3, 3);
@@ -57,6 +60,8 @@ public class extrasPage extends AppCompatActivity {
 
         confirmationPage.setOnClickListener(view -> {
             Intent i = new Intent(extrasPage.this, Confirmation_page.class);
+            i.putExtra("pickupDate", String.valueOf(pickupdate));
+            i.putExtra("returnDate", String.valueOf(returndate));
             startActivity(i);
         });
 
@@ -68,6 +73,7 @@ public class extrasPage extends AppCompatActivity {
 
     // Function for Selecting Extras
     // Function for Selecting Extras
+
     private void setLayoutClickListener(ConstraintLayout layout, int index) {
         layout.setOnClickListener(v -> {
             SharedPreferences sharedPreferences = getSharedPreferences("OrderSummaryEP", MODE_PRIVATE);
@@ -77,33 +83,52 @@ public class extrasPage extends AppCompatActivity {
                 case 1:
                     isSelected1 = !isSelected1;
                     layout.setBackgroundResource(isSelected1 ? R.drawable.extras_page_selected_background : R.drawable.extras_page_background);
-                    editorEP.putString("Extra1", isSelected1 ? "200/Day" : ""); // Save or clear value
+                    if (isSelected1) {
+                        editorEP.putString("Extra1", "200"); // store value only when selected
+                    } else {
+                        editorEP.remove("Extra1"); // remove from preferences when deselected
+                    }
                     break;
                 case 2:
                     isSelected2 = !isSelected2;
                     layout.setBackgroundResource(isSelected2 ? R.drawable.extras_page_selected_background : R.drawable.extras_page_background);
-                    editorEP.putString("Extra2", isSelected2 ? "700" : "");
+                    if (isSelected2) {
+                        editorEP.putString("Extra2", "700");
+                    } else {
+                        editorEP.remove("Extra2");
+                    }
                     break;
                 case 3:
                     isSelected3 = !isSelected3;
                     layout.setBackgroundResource(isSelected3 ? R.drawable.extras_page_selected_background : R.drawable.extras_page_background);
-                    editorEP.putString("Extra3", isSelected3 ? "400" : "");
+                    if (isSelected3) {
+                        editorEP.putString("Extra3", "400");
+                    } else {
+                        editorEP.remove("Extra3");
+                    }
                     break;
                 case 4:
                     isSelected4 = !isSelected4;
                     layout.setBackgroundResource(isSelected4 ? R.drawable.extras_page_selected_background : R.drawable.extras_page_background);
-                    editorEP.putString("Extra4", isSelected4 ? "1400" : "");
+                    if (isSelected4) {
+                        editorEP.putString("Extra4", "1400");
+                    } else {
+                        editorEP.remove("Extra4");
+                    }
                     break;
                 case 5:
                     isSelected5 = !isSelected5;
                     layout.setBackgroundResource(isSelected5 ? R.drawable.extras_page_selected_background : R.drawable.extras_page_background);
-                    editorEP.putString("Extra5", isSelected5 ? "1400" : "");
+                    if (isSelected5) {
+                        editorEP.putString("Extra5", "1400");
+                    } else {
+                        editorEP.remove("Extra5");
+                    }
                     break;
             }
-            editorEP.apply(); // Apply changes
+            editorEP.apply();
         });
     }
-
 
     // Function to clear ALL extras
     private void clearAllSelections() {
@@ -119,6 +144,5 @@ public class extrasPage extends AppCompatActivity {
         extra4.setBackgroundResource(R.drawable.extras_page_background);
         extra5.setBackgroundResource(R.drawable.extras_page_background);
     }
-
 
 }

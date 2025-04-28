@@ -25,98 +25,197 @@ import android.widget.Button;
 import android.content.SharedPreferences;
 
 public class BrandLineup_page extends AppCompatActivity {
+
+    // UI Elements
     Button detailButton;
     TextView brand_name;
-    ImageButton brandLogosRedirect;
+    ImageButton brandLogosRedirect, homeimgbtn;
     RecyclerView brandLineup_recyclerView;
     LayoutInflater inflater;
+
+    // Lists to hold car info
     List<String> carNames, carDetails, carImages;
+
+    // Adapter to bind data to RecyclerView
     brandLineup_adapter adapter;
+
+    // Firestore database instance
     FirebaseFirestore db;
 
-    // NEW CODE
+    // Additional specs
     List<String> Transmission, FuelType;
     List<String> Seating, MaxSpeed, Engine;
     List<Double> PetrolPrice, DieselPrice;
-    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Make app full screen with edge-to-edge content
         setContentView(R.layout.activity_brand_lineup_page);
 
-        // SHARED PREFERENCES INITIALIZATION
+        // SharedPreferences for storing brand temporarily (optional feature)
         SharedPreferences sharedPreferences = getSharedPreferences("OrderSummaryBL", MODE_PRIVATE);
         SharedPreferences.Editor editorBL = sharedPreferences.edit();
 
+        // Link UI elements to Java code
         brandLineup_recyclerView = findViewById(R.id.brand_lineup_recyclerview);
+        brand_name = findViewById(R.id.brand_name);
+        brandLogosRedirect = findViewById(R.id.brandlogosredirect);
+        homeimgbtn = findViewById(R.id.homeimgButton);
+
+        // Initialize all lists
         carNames = new ArrayList<>();
         carDetails = new ArrayList<>();
         carImages = new ArrayList<>();
-
-        // NEW CODE
         Transmission = new ArrayList<>();
         FuelType = new ArrayList<>();
         Seating = new ArrayList<>();
         MaxSpeed = new ArrayList<>();
         Engine = new ArrayList<>();
-
         PetrolPrice = new ArrayList<>();
         DieselPrice = new ArrayList<>();
-        //
 
-        adapter = new brandLineup_adapter(this, carNames, carDetails, carImages, Transmission, FuelType,
-                Seating, MaxSpeed, Engine, PetrolPrice, DieselPrice);
+        // Initialize adapter with empty lists initially
+        adapter = new brandLineup_adapter(this, carNames, carDetails, carImages,
+                Transmission, FuelType, Seating, MaxSpeed, Engine, PetrolPrice, DieselPrice);
 
+        // Setup RecyclerView with vertical layout and adapter
         brandLineup_recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         brandLineup_recyclerView.setAdapter(adapter);
 
+        // Get Firestore instance
         db = FirebaseFirestore.getInstance();
 
-        brand_name = findViewById(R.id.brand_name);
 
-        String brandName = getIntent().getStringExtra("brandName"); // Use "brandName" to match the key
+        // Get brand name passed from previous activity
+        String brandName = getIntent().getStringExtra("brandName");
         brand_name.setText(brandName);
+
+        // Fetch car data for that brand from Firestore
         if (brandName != null) {
             fetchCarFromFirestore(brandName);
         } else {
             Log.e("BrandLineup_page", "Brand name is null!");
         }
 
-        editorBL.putString("BrandName", brandName);
-        editorBL.apply();
-        Log.d("SharedPreferences", "Stored BrandName: " + brandName);
-
+        // Set padding for notch, status bar, etc.
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // Go to brand logos page
+        brandLogosRedirect.setOnClickListener(view -> {
+            Intent i = new Intent(BrandLineup_page.this, brands_logos_page.class);
+            startActivity(i);
+            finish();
+        });
+
+        // Go to home page
+        homeimgbtn.setOnClickListener(view -> {
+            Intent h = new Intent(BrandLineup_page.this, home_page.class);
+            startActivity(h);
+            finish();
+        });
     }
 
+    // This function fetches all cars under the brand from Firestore
     private void fetchCarFromFirestore(String brandName) {
-        db.collection("Cars").document(brandName).collection("cars") // Fetch cars from the brand's subcollection
+        db.collection("Cars").document(brandName).collection("cars")
+                .get()
+                .addOnCompleteListener(task -> {
+                    // 📦 `task` = result of the Firestore query (all documents under that brand)
+                    if (task.isSuccessful()) {
+                        // Clear lists first if you expect refresh
+
+                        for (DocumentSnapshot document : task.getResult()) {
+                            try {
+                                // Extract data from Firestore document
+                                String name = document.getString("Name");
+                                String details = document.getString("Fuel Type") + " | " +
+                                        document.getString("Transmission") + " | " +
+                                        document.getString("Seating") + "-Seater";
+                                String imageUrl = document.getString("Image");
+
+                                // Individual specs
+                                String transmission = "Transmission\n" + document.getString("Transmission");
+                                String fueltype = "Fuel Type\n" + document.getString("Fuel Type");
+                                String seating = document.getString("Seating") + " Seater";
+                                String maxspeed = document.getString("Max Speed");
+                                String engine = "Engine\n" + document.getString("Engine");
+
+                                // Convert petrol price safely
+                                double petrolPrice = 0.0;
+                                if (document.contains("Petrol Price")) {
+                                    Object petrolValue = document.get("Petrol Price");
+                                    if (petrolValue instanceof Number) {
+                                        petrolPrice = ((Number) petrolValue).doubleValue();
+                                    }
+                                }
+
+                                // Convert diesel price safely
+                                double dieselPrice = 0.0;
+                                if (document.contains("Diesel Price")) {
+                                    Object dieselValue = document.get("Diesel Price");
+                                    if (dieselValue instanceof Number) {
+                                        dieselPrice = ((Number) dieselValue).doubleValue();
+                                    }
+                                }
+
+                                // Add all values to lists
+                                carNames.add(name);
+                                carDetails.add(details);
+                                carImages.add(imageUrl);
+                                Transmission.add(transmission);
+                                FuelType.add(fueltype);
+                                Seating.add(seating);
+                                MaxSpeed.add(maxspeed);
+                                Engine.add(engine);
+                                PetrolPrice.add(petrolPrice);
+                                DieselPrice.add(dieselPrice);
+                            } catch (Exception e) {
+                                Log.e("Firestore", "Error processing car: " + document.getId(), e);
+                            }
+                        }
+
+                        // 🔁 Notify adapter that data has changed, update RecyclerView
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.e("Firestore", "Error fetching data", task.getException());
+                    }
+                }); // this whole block is an OnCompleteListener (runs once the query is done)
+    }
+}
+
+
+
+/*
+    // Fetches car data from Firestore for a specific brand
+    private void fetchCarFromFirestore(String brandName) {
+        db.collection("Cars").document(brandName).collection("cars")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        Log.d("BrandLineup", "Query successful for " + brandName);
+
+                        if (task.getResult().isEmpty()) {
+                            Log.w("BrandLineup", "No cars found for brand: " + brandName);}
+                        else {
+                            Log.d("BrandLineup", "Found " + task.getResult().size() + " cars for brand: " + brandName);
+                        // Clear all lists before adding fresh data
                         carNames.clear();
                         carDetails.clear();
                         carImages.clear();
-
-                        // NEW CODE
                         Transmission.clear();
                         FuelType.clear();
                         Seating.clear();
                         MaxSpeed.clear();
                         Engine.clear();
-                        //
-
                         PetrolPrice.clear();
                         DieselPrice.clear();
 
+                        // Loop through all documents (cars) under the selected brand
                         for (DocumentSnapshot document : task.getResult()) {
                             String name = document.getString("Name");
                             String details = document.getString("Fuel Type") + " | " +
@@ -124,48 +223,45 @@ public class BrandLineup_page extends AppCompatActivity {
                                     document.getString("Seating") + "-Seater";
                             String imageUrl = document.getString("Image");
 
-                            // NEW CODE
-
+                            // Extracting additional car spec details
                             String transmission = "Transmission\n" + document.getString("Transmission");
                             String fueltype = "Fuel Type\n" + document.getString("Fuel Type");
                             String seating = document.getString("Seating") + " Seater";
                             String maxspeed = document.getString("Max Speed");
                             String engine = "Engine\n" + document.getString("Engine");
-                            //
 
                             double petrolPrice = document.getDouble("Petrol Price");
                             double dieselPrice = document.getDouble("Diesel Price");
 
+                            // Adding data to respective lists
                             carNames.add(name);
                             carDetails.add(details);
                             carImages.add(imageUrl);
-
-                            // NEW CODE
                             Transmission.add(transmission);
                             FuelType.add(fueltype);
                             Seating.add(seating);
                             MaxSpeed.add(maxspeed);
                             Engine.add(engine);
-                            //
-
                             PetrolPrice.add(petrolPrice);
                             DieselPrice.add(dieselPrice);
                         }
 
+                        // Notify adapter to refresh the RecyclerView
                         adapter.notifyDataSetChanged();
-                    } else {
+                    }} else {
                         Log.e("Firestore", "Error fetching data", task.getException());
                     }
                 });
-    }
+    } */
 
-    private void setupRecyclerView(List<String> carNames, List<String> carDetails, List<String> carImages, List<String> Transmission,
-                                   List<String> FuelType, List<String> Seating, List<String> MaxSpeed, List<String> Engine,
+    // Optional setup method to initialize or refresh RecyclerView (not used here, but can be useful)
+    /*
+    private void setupRecyclerView(List<String> carNames, List<String> carDetails, List<String> carImages,
+                                   List<String> Transmission, List<String> FuelType, List<String> Seating,
+                                   List<String> MaxSpeed, List<String> Engine,
                                    List<Double> PetrolPrice, List<Double> DieselPrice) {
         adapter = new brandLineup_adapter(this, carNames, carDetails, carImages, Transmission, FuelType, Seating, MaxSpeed, Engine,
                 PetrolPrice, DieselPrice);
         brandLineup_recyclerView.setAdapter(adapter);
-    }
+    }*/
 
-
-}

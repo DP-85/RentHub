@@ -27,8 +27,9 @@
         android:layout_marginTop="20dp"
         android:paddingStart="25dp"
         android:text="UPI ID:"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
+        android:fontFamily="@font/poppinsregular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upiHeader" />
@@ -50,17 +51,56 @@
         app:layout_constraintTop_toBottomOf="@id/upiIDHeader" />
 
     <TextView
-        android:id="@+id/amountHeader"
+        android:id="@+id/oR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingStart="25dp"
-        android:text="Total Amount:"
+        android:layout_marginTop="3dp"
+        android:text="OR"
         android:textSize="18sp"
+        android:fontFamily="@font/poppinsextrabold"
+        android:textAlignment="center"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upiID" />
+
+    <TextView
+        android:id="@+id/qrHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:paddingStart="25dp"
+        android:text="SCAN OUR QR: "
+        android:textSize="16sp"
+        android:fontFamily="@font/poppinsregular"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/oR" />
+
+    <ImageView
+        android:id="@+id/qrCode"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/qrcode"
+        app:layout_constraintTop_toBottomOf="@id/qrHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/amountHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="25dp"
+        android:text="Total Amount:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppinsregular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qrCode" />
 
     <TextView
         android:id="@+id/amount"
@@ -71,7 +111,7 @@
         android:paddingVertical="10dp"
         android:paddingStart="16dp"
         android:background="@drawable/input_background"
-        android:text="26500"
+        android:text="58600"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

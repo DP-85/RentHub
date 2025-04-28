@@ -38,10 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/poppinsextrabold"
             android:text="CONFIRMATION"
             android:textColor="#000000"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/homeButton"
             app:layout_constraintStart_toEndOf="@+id/imageButton2"
             app:layout_constraintTop_toTopOf="parent" />
@@ -61,11 +61,12 @@
             android:id="@+id/dateAndTimeHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="15dp"
             android:text="BOOKING DATE and TIME"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppinsregular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/confirmation_header" />
 
@@ -73,7 +74,7 @@
             android:id="@+id/bookingDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,11 +82,13 @@
             app:layout_constraintTop_toBottomOf="@id/dateAndTimeHeader">
 
             <TextView
+                android:id="@+id/pickingdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="JUNE 23"
+                android:text="APRIL 17"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="14sp"
+                android:fontFamily="@font/poppinsregular"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -94,14 +97,16 @@
                 android:gravity="center"
                 android:text="→"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/returningdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="JULY 2"
+                android:text="APRIL 20"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="14sp"
+                android:fontFamily="@font/poppinsregular"/>
         </LinearLayout>
 
         <LinearLayout
@@ -120,7 +125,8 @@
                 android:layout_marginEnd="10dp"
                 android:text="10:30"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:fontFamily="@font/poppinsregular"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -128,18 +134,19 @@
                 android:layout_marginStart="40dp"
                 android:text="13:30"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:fontFamily="@font/poppinsregular"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/orderSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="15dp"
             android:text="ORDER SUMMARY"
-            android:textColor="@color/black"
             android:textSize="16sp"
+            android:fontFamily="@font/poppinsbold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bookingTime" />
 
@@ -166,8 +173,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="10dp"
-                    android:paddingVertical="5dp"
-                    android:text=" Brand                 : "
+                    android:paddingVertical="0dp"
+                    android:text=" Brand                    : "
                     android:textSize="13sp"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -180,8 +187,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="10dp"
-                    android:paddingVertical="5dp"
-                    android:text=" Car                      : "
+                    android:paddingVertical="0dp"
+                    android:text=" Car                         : "
                     android:textSize="13sp"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -194,8 +201,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="10dp"
-                    android:paddingVertical="5dp"
-                    android:text=" Total Days          : "
+                    android:paddingVertical="0dp"
+                    android:text=" Total Days            : "
                     android:textSize="13sp"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -208,8 +215,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="10dp"
-                    android:paddingVertical="5dp"
-                    android:text=" Base Price          : "
+                    android:paddingVertical="0dp"
+                    android:text=" Base Price            : "
                     android:textSize="13sp"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -222,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="10dp"
-                    android:paddingVertical="5dp"
+                    android:paddingVertical="0dp"
                     android:text=" Extras : "
                     android:textSize="13sp"
                     android:textColor="@color/black"
@@ -236,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="30dp"
-                    android:paddingVertical="2dp"
+                    android:paddingVertical="0dp"
                     android:text=" Cheuffeur          : "
                     android:textSize="12sp"
                     android:textColor="@color/black"
@@ -250,7 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="30dp"
-                    android:paddingVertical="2dp"
+                    android:paddingVertical="0dp"
                     android:text=" Booster Seat    : "
                     android:textSize="12sp"
                     android:textColor="@color/black"
@@ -264,7 +271,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="30dp"
-                    android:paddingVertical="2dp"
+                    android:paddingVertical="0dp"
                     android:text=" Organizers        : "
                     android:textSize="12sp"
                     android:textColor="@color/black"
@@ -278,7 +285,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="30dp"
-                    android:paddingVertical="2dp"
+                    android:paddingVertical="0dp"
                     android:text=" Tyre Inflator      : "
                     android:textSize="12sp"
                     android:textColor="@color/black"
@@ -292,7 +299,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="30dp"
-                    android:paddingVertical="2dp"
+                    android:paddingVertical="0dp"
                     android:text=" Top Box             : "
                     android:textSize="12sp"
                     android:textColor="@color/black"
@@ -301,18 +308,32 @@
                     app:layout_constraintTop_toBottomOf="@id/tyreInflator" />
 
                 <TextView
-                    android:id="@+id/total_Price"
+                    android:id="@+id/securityDeposit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingStart="10dp"
-                    android:paddingVertical="5dp"
-                    android:text=" Total Price : "
-                    android:textSize="13sp"
+                    android:paddingVertical="0dp"
+                    android:text="Security Deposit      : 5000"
+                    android:textSize="12sp"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/topBox" />
+
+                <TextView
+                    android:id="@+id/total_Price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingVertical="0dp"
+                    android:text="Total Price             : 58600"
+                    android:textSize="13sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/securityDeposit" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -325,7 +346,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="15dp"
             android:text="PAYMENT OPTIONS"
-            android:textColor="@color/black"
+            android:fontFamily="@font/poppinsbold"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/orderSummaryCard" />
@@ -396,7 +417,7 @@
             android:layout_marginEnd="10dp"
             android:paddingStart="10dp"
             android:drawableStart="@drawable/baseline_attach_money_24"
-            android:text="  Cash On Delivery"
+            android:text=" COD"
             android:textColor="#000000"
             android:textSize="16sp"
             android:background="@drawable/radio_button_default"

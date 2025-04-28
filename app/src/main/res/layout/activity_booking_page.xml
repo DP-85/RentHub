@@ -22,40 +22,35 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.99" />
 
-    <LinearLayout
-        android:id="@+id/dateTimeBar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
+    <ImageButton
+        android:id="@+id/bkngDetailsRedirect"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
         android:background="@color/grey"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/baseline_arrow_back_24" />
+    <TextView
+        android:id="@+id/bkngHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="DATE AND TIME"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintEnd_toStartOf="@+id/bkngHomeRedirect"
+        app:layout_constraintStart_toEndOf="@+id/bkngDetailsRedirect"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="10dp"
-            android:paddingEnd="50dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Date and Time"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:fontFamily="serif-monospace"
-            />
-
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/bkngHomeRedirect"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:background="@color/grey"
+        android:src="@drawable/baseline_home_filled_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/pickupDate"
@@ -69,7 +64,7 @@
         app:layout_constraintDimensionRatio="3.5:1"
         app:layout_constraintEnd_toStartOf="@+id/returnDate"
         app:layout_constraintStart_toEndOf="@id/vertical_guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/dateTimeBar" />
+        app:layout_constraintTop_toBottomOf="@id/bkngHeader" />
 
     <Button
         android:id="@+id/returnDate"
@@ -83,7 +78,7 @@
         app:layout_constraintDimensionRatio="3.5:1"
         app:layout_constraintStart_toEndOf="@id/pickupDate"
         app:layout_constraintEnd_toStartOf="@id/vertical_guideline_end"
-        app:layout_constraintTop_toBottomOf="@id/dateTimeBar" />
+        app:layout_constraintTop_toBottomOf="@id/bkngHeader" />
 
     <CalendarView
         android:id="@+id/pickupCalendar"
@@ -199,3 +194,42 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--
+        <LinearLayout
+            android:id="@+id/dateTimeBar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/grey"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/baseline_arrow_back_24" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:paddingEnd="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Date and Time"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="serif-monospace"
+                />
+
+        </LinearLayout>
+
+
+    -->

@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class signup_page extends AppCompatActivity {
 
-    EditText signup_name, signup_phone, signup_email, signup_password, signup_confirm_password;
+    EditText signup_name, signup_phone, signup_email, signup_password, signup_confirm_password, signup_address;
     Button signup_button, login_redirect;
     FirebaseAuth fauth;
     FirebaseFirestore db;
@@ -47,14 +47,11 @@ public class signup_page extends AppCompatActivity {
         signup_password = findViewById(R.id.signup_password);
         signup_confirm_password = findViewById(R.id.signup_confirm_password);
         signup_button = findViewById(R.id.signup_button);
+        signup_address = findViewById(R.id.signup_address);
         login_redirect = findViewById(R.id.login_redirect);
 
         fauth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
-        if(fauth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), home_page.class));
-        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -69,10 +66,12 @@ public class signup_page extends AppCompatActivity {
                 String phone = signup_phone.getText().toString().trim();
                 String email = signup_email.getText().toString().trim();
                 String password = signup_password.getText().toString().trim();
+                String address = signup_address.getText().toString().trim();
 
                 String fullname = signup_name.getText().toString();
                 String phoneno = signup_phone.getText().toString();
                 String Email = signup_email.getText().toString();
+                String Address = signup_address.getText().toString();
 
                 if(TextUtils.isEmpty(name)) {
                     signup_name.setError("Name is required");
@@ -99,6 +98,15 @@ public class signup_page extends AppCompatActivity {
                     return;
                 }
 
+                if(TextUtils.isEmpty(address)) {
+                    signup_address.setError("Address is mandatory");
+                }
+
+                if(address.length() < 13) {
+                    signup_address.setError("Address is too short");
+                    return;
+                }
+
                 fauth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -111,6 +119,7 @@ public class signup_page extends AppCompatActivity {
                             user.put("Name", fullname);
                             user.put("email", Email);
                             user.put("PhoneNo", phoneno);
+                            user.put("Address", Address);
 
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

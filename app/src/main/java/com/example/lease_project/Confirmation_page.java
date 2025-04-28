@@ -14,7 +14,7 @@ import android.widget.*;
 import android.content.Intent;
 
 public class Confirmation_page extends AppCompatActivity {
-    TextView brand_name, car_name, total_days, base_price, chauffeur, boosterSeat, organizers, tyreInflator, topBox, totalPrice;
+    TextView pickupDate, returnDate, brand_name, car_name, total_days, base_price, chauffeur, boosterSeat, organizers, tyreInflator, topBox, totalPrice;
     TextView card, upi, installments, cod;
     ImageButton homeButton;
     Button payButton;
@@ -36,6 +36,8 @@ public class Confirmation_page extends AppCompatActivity {
         tyreInflator = findViewById(R.id.tyreInflator);
         topBox = findViewById(R.id.topBox);
         totalPrice = findViewById(R.id.total_Price);
+        pickupDate = findViewById(R.id.pickingdate);
+        returnDate = findViewById(R.id.returningdate);
 
         card = findViewById(R.id.Card);
         upi = findViewById(R.id.upi);
@@ -113,17 +115,54 @@ public class Confirmation_page extends AppCompatActivity {
         if (!extra4.isEmpty()) TopBox += extra4 + "\n";
         if (!extra5.isEmpty()) Organizers += extra5 + "\n";
 
+        String pickupdate = getIntent().getStringExtra("pickupDate");
+        String returndate = getIntent().getStringExtra("returnDate");
+
+        // Calculate total extras
+        int extrasTotal = 0;
+        try {
+            if (extra1 != null && !extra1.equals("None")) extrasTotal += Integer.parseInt(extra1);
+            if (extra2 != null && !extra2.equals("None")) extrasTotal += Integer.parseInt(extra2);
+            if (extra3 != null && !extra3.equals("None")) extrasTotal += Integer.parseInt(extra3);
+            if (extra4 != null && !extra4.equals("None")) extrasTotal += Integer.parseInt(extra4);
+            if (extra5 != null && !extra5.equals("None")) extrasTotal += Integer.parseInt(extra5);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+// Convert base price to integer
+        int basePrice = 0;
+        try {
+            basePrice = Integer.parseInt(Price);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+// Total Price = Base + Extras
+        int finalTotal = basePrice + extrasTotal;
+
+// Show in TextView
+        totalPrice.setText("Total Amount : " + finalTotal + " ₹");
+
+
+// Show in TextView
+        totalPrice.setText("Total Amount : " + finalTotal + " ₹");
+
+
 // Set text in TextView
 
+        pickupDate.setText(pickupdate);
+        returnDate.setText(returndate);
         brand_name.setText(" Brand                 : " + BrandName);
         car_name.setText(" Car                      : " + carName);
         total_days.setText(" Total Days          : " + Days);
         base_price.setText(" Base Price          : " + Price);
         chauffeur.setText(" Cheuffeur          : " + Chauffeur);
         boosterSeat.setText(" Booster Seat    : " + BoosterSeat);
-        tyreInflator.setText(" Organizers        : " + TyreInflator);
-        topBox.setText("Tyre Inflator      : " + TopBox);
-        organizers.setText(" Top Box             : " + Organizers);
+        tyreInflator.setText(" Tyre Inflator : " + TyreInflator);
+        topBox.setText(" Top Box : " + TopBox);
+        organizers.setText(" Organizers : " + Organizers);
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

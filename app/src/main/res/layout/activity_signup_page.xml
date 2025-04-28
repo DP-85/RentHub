@@ -22,22 +22,34 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
 
+    <TextView
+        android:id="@+id/signup_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/loversquarrelregular"
+        android:text="Rent Hub"
+        android:textSize="60sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <!-- Page Title -->
     <TextView
         android:id="@+id/signup_app_title"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="65dp"
-        android:fontFamily="serif-monospace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:fontFamily="@font/poppinsregular"
         android:text="Create Account"
         android:textAlignment="center"
-        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintDimensionRatio="5:1.5"
         app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
         app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/signup_header" />
 
     <!-- Name Field -->
     <EditText
@@ -92,6 +104,24 @@
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="32dp" />
 
+    <!-- Address Field -->
+    <EditText
+        android:id="@+id/signup_address"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint=" Enter Your Address"
+        android:inputType="text"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textSize="14sp"
+        android:drawableStart="@drawable/baseline_add_location_alt_24"
+        app:layout_constraintDimensionRatio="5.8:1"
+        app:layout_constraintTop_toBottomOf="@id/signup_email"
+        app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="32dp" />
+
     <!-- Password Field -->
     <EditText
         android:id="@+id/signup_password"
@@ -104,7 +134,7 @@
         android:textSize="14sp"
         android:drawableStart="@drawable/baseline_lock_24"
         app:layout_constraintDimensionRatio="5.8:1"
-        app:layout_constraintTop_toBottomOf="@id/signup_email"
+        app:layout_constraintTop_toBottomOf="@id/signup_address"
         app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
         app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
         android:layout_marginTop="20dp"

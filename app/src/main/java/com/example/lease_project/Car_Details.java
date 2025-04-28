@@ -15,37 +15,60 @@ import com.bumptech.glide.Glide;
 import android.content.SharedPreferences;
 
 public class Car_Details extends AppCompatActivity {
-    ImageButton backToLineup;
+
+    // UI Components
+    ImageButton backToLineup, backToHome;
     RadioButton petrolButton, dieselButton, hybridButton;
     ImageView carImageView;
     TextView carSeating, carTransmission, carFuelType, carMaxSpeed, carEngine, carNameTextView, perDayPrice, perWeekPrice, perMonthPrice, customPrice;
     Button pickup;
-    Double PetrolPrice, DieselPrice, selectedPrice = 0.0, days = 0.0;
     ImageView Clock1, Clock2, Clock3, Clock4;
-    Boolean petrolSelect = Boolean.TRUE , dieselSelect = Boolean.FALSE;
     CardView plan1, plan2, plan3, plan4;
+
+    // Variables to track prices and selection
+    Double PetrolPrice, DieselPrice, selectedPrice = 0.0, days = 0.0;
+    Boolean petrolSelect = Boolean.TRUE , dieselSelect = Boolean.FALSE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Enables edge-to-edge layout
         setContentView(R.layout.activity_car_details);
+
+        // Adjust padding to avoid overlapping with system bars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // SHARED PREFERENCES INITIALIZATION
+        // Navigation Buttons
+        backToHome = findViewById(R.id.detailsHomeRedirect);
+        backToLineup = findViewById(R.id.backButton);
+
+        // Back to car lineup page
+        backToLineup.setOnClickListener(view -> {
+            Intent lineup = new Intent(Car_Details.this, BrandLineup_page.class);
+            startActivity(lineup);
+            finish();
+        });
+
+        // Back to home page
+        backToHome.setOnClickListener(view -> {
+            Intent home = new Intent(Car_Details.this, home_page.class);
+            startActivity(home);
+            finish();
+        });
+
+        // SharedPreferences to save car name for later use (like Order Summary)
         SharedPreferences sharedPreferences = getSharedPreferences("OrderSummaryCD", MODE_PRIVATE);
         SharedPreferences.Editor editorCD = sharedPreferences.edit();
 
-        // Initialize views AFTER setContentView()
-        backToLineup = findViewById(R.id.backButton);
+        // Initialize UI components
         petrolButton = findViewById(R.id.petrolButton);
         dieselButton = findViewById(R.id.dieselButton);
         hybridButton = findViewById(R.id.hybridButton);
-        
+
         carImageView = findViewById(R.id.carImage);
         carNameTextView = findViewById(R.id.carName);
         carEngine = findViewById(R.id.car_detail_engine);
@@ -56,6 +79,7 @@ public class Car_Details extends AppCompatActivity {
         Clock2 = findViewById(R.id.clock2);
         Clock3 = findViewById(R.id.clock3);
         Clock4 = findViewById(R.id.clock4);
+
         perDayPrice = findViewById(R.id.perDayPlan);
         perWeekPrice = findViewById(R.id.perWeekPlan);
         perMonthPrice = findViewById(R.id.perMonthPlan);
@@ -66,113 +90,123 @@ public class Car_Details extends AppCompatActivity {
         plan3 = findViewById(R.id.plan3);
         plan4 = findViewById(R.id.plan4);
 
-        // Get data from intent
+        // Get data from the previous page using Intent extras
         String carName = getIntent().getStringExtra("carName");
         String carengine = getIntent().getStringExtra("Engine");
         String carImage = getIntent().getStringExtra("carImage");
 
-        // Set data in views
+        // Set values to the UI
         carNameTextView.setText(carName);
         carEngine.setText(carengine);
-        Glide.with(this).load(carImage).into(carImageView);
+        Glide.with(this).load(carImage).into(carImageView); // Load car image using Glide
 
-        // NEW CODE
+        // Get more car info from Intent
         String Transmission = getIntent().getStringExtra("Transmission");
         String FuelType = getIntent().getStringExtra("FuelType");
         String Seating = getIntent().getStringExtra("Seating");
         String Maxspeed = getIntent().getStringExtra("Max Speed");
 
+        // Set more car details to the UI
         carTransmission = findViewById(R.id.car_detail_transmission);
         carSeating = findViewById(R.id.car_detail_seating);
         carFuelType = findViewById(R.id.car_detail_fuelType);
 
         carTransmission.setText(Transmission);
         carFuelType.setText(FuelType);
-        carSeating.setText(String.valueOf(Seating));
+        carSeating.setText(Seating);
         carMaxSpeed.setText(Maxspeed);
-        //
 
-        // SHARED PREFERENCES DATA STORAGE
+        // Save selected car name to shared preferences
         editorCD.putString("CarName", carName);
         editorCD.apply();
 
+        // Get petrol and diesel prices from intent
         Double petrolPricePerDay = getIntent().getDoubleExtra("Petrol Price", 0);
         Double dieselPricePerDay = getIntent().getDoubleExtra("Diesel Price", 0);
 
+        // Calculate weekly and monthly prices using helper function
         double PetrolPrices[] = calculateRentalPricing(petrolPricePerDay);
         double DieselPrices[] = calculateRentalPricing(dieselPricePerDay);
 
-// For Petrol Prices
+        // ========== PETROL BUTTON ==========
         petrolButton.setOnClickListener(view -> {
             petrolSelect = true;
             dieselSelect = false;
+
+            // Change button background colors to indicate selection
             petrolButton.setBackgroundResource(R.drawable.car_detail_spec_bg_selector);
             dieselButton.setBackgroundResource(R.drawable.car_detailspec_bg);
 
+            // Set petrol prices on the UI
             perDayPrice.setText(" ₹" + String.format("%.0f", PetrolPrices[0]) + "\n Day");
             perWeekPrice.setText(" ₹" + String.format("%.0f", PetrolPrices[1]) + "\n Week");
             perMonthPrice.setText(" ₹" + String.format("%.0f", PetrolPrices[2]) + "\n Month");
 
-            // Plan 1 - Day
+            // Plan 1 - Daily
             plan1.setOnClickListener(view1 -> {
                 selectedPrice = PetrolPrices[0];
                 days = 1.0;
-                highlightPlan(plan1, Clock1);;
+                highlightPlan(plan1, Clock1);
             });
 
-            // Plan 2 - Week
+            // Plan 2 - Weekly
             plan2.setOnClickListener(view1 -> {
                 selectedPrice = PetrolPrices[1];
                 days = 7.0;
                 highlightPlan(plan2, Clock2);
             });
 
-            // Plan 3 - Month
+            // Plan 3 - Monthly
             plan3.setOnClickListener(view1 -> {
                 selectedPrice = PetrolPrices[2];
                 days = 30.0;
                 highlightPlan(plan3, Clock3);
             });
 
+            // Plan 4 - Custom (currently treated same as daily)
             plan4.setOnClickListener(view1 -> {
                 selectedPrice = PetrolPrices[0];
-                days = -1.0;
+                days = -1.0; // special value for custom
                 highlightPlan(plan4, Clock4);
             });
         });
 
-// For Diesel Prices
+        // ========== DIESEL BUTTON ==========
         dieselButton.setOnClickListener(view -> {
             petrolSelect = false;
             dieselSelect = true;
+
+            // Update selection UI
             dieselButton.setBackgroundResource(R.drawable.car_detail_spec_bg_selector);
             petrolButton.setBackgroundResource(R.drawable.car_detailspec_bg);
 
+            // Set diesel prices
             perDayPrice.setText(" ₹" + String.format("%.0f", DieselPrices[0]) + "\n Day");
             perWeekPrice.setText(" ₹" + String.format("%.0f", DieselPrices[1]) + "\n Week");
             perMonthPrice.setText(" ₹" + String.format("%.0f", DieselPrices[2]) + "\n Month");
 
-            // Plan 1 - Day
+            // Plan 1 - Daily
             plan1.setOnClickListener(view1 -> {
                 selectedPrice = DieselPrices[0];
                 days = 1.0;
                 highlightPlan(plan1, Clock1);
             });
 
-            // Plan 2 - Week
+            // Plan 2 - Weekly
             plan2.setOnClickListener(view1 -> {
                 selectedPrice = DieselPrices[1];
                 days = 7.0;
                 highlightPlan(plan2, Clock2);
             });
 
-            // Plan 3 - Month
+            // Plan 3 - Monthly
             plan3.setOnClickListener(view1 -> {
                 selectedPrice = DieselPrices[2];
                 days = 30.0;
                 highlightPlan(plan3, Clock3);
             });
 
+            // Plan 4 - Custom
             plan4.setOnClickListener(view1 -> {
                 selectedPrice = DieselPrices[0];
                 days = -1.0;
@@ -180,7 +214,8 @@ public class Car_Details extends AppCompatActivity {
             });
         });
 
-// Send selected price on pickup button click
+        // ========== PICKUP BUTTON ==========
+        // Sends selected price and plan duration to next page
         pickup.setOnClickListener(view -> {
             if (selectedPrice != 0.0 && days != 0.0) {
                 Intent intent = new Intent(Car_Details.this, Booking_page.class);
@@ -193,237 +228,33 @@ public class Car_Details extends AppCompatActivity {
         });
     }
 
-    // Highlight the selected plan visually
+    // ========== HELPER FUNCTION ==========
+    // Highlights the selected plan visually and resets others
     private void highlightPlan(CardView selectedPlan, ImageView selectedClock) {
+        // Reset backgrounds
         plan1.setBackgroundResource(R.drawable.rentplans_default_background);
         plan2.setBackgroundResource(R.drawable.rentplans_default_background);
         plan3.setBackgroundResource(R.drawable.rentplans_default_background);
         plan4.setBackgroundResource(R.drawable.rentplans_default_background);
+
+        // Highlight selected plan
         selectedPlan.setBackgroundResource(R.drawable.rentplans_selected_background);
+
+        // Reset clock colors
         Clock1.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
         Clock2.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
         Clock3.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
         Clock4.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
+
+        // Highlight selected clock
         selectedClock.setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_IN);
     }
 
+    // ========== HELPER FUNCTION ==========
+    // Calculates weekly (15% off) and monthly (25% off) prices
     private double[] calculateRentalPricing(double dailyPrice) {
-        double weeklyPrice = (dailyPrice * 7) * 0.85; // 15% discount
-        double monthlyPrice = (dailyPrice * 30) * 0.75; // 25% discount
-
-        return new double[]{dailyPrice, weeklyPrice, monthlyPrice}; // Returning all prices
+        double weeklyPrice = (dailyPrice * 7) * 0.85;
+        double monthlyPrice = (dailyPrice * 30) * 0.75;
+        return new double[]{dailyPrice, weeklyPrice, monthlyPrice};
     }
 }
-
-/*
-        OLD CODE
-
-        petrolPlans = findViewById(R.id.petrolPlans);
-        dieselPlans = findViewById(R.id.dieselPlans);
-        hybridPlans = findViewById(R.id.hybridPlans);
-
-        PetrolPriceDay = findViewById(R.id.petrolPriceDay);
-        PetrolPriceWeek = findViewById(R.id.petrolPriceWeek);
-        PetrolPriceMonth = findViewById(R.id.petrolPriceMonth);
-        DieselPriceDay = findViewById(R.id.dieselPriceDay);
-        DieselPriceWeek = findViewById(R.id.dieselPriceWeek);
-        DieselPriceMonth = findViewById(R.id.dieselPriceMonth);
-
-        customPetrol = findViewById(R.id.customPetrol);
-        customDiesel = findViewById(R.id.customDiesel);
-
-        PetrolPriceDay.setText("Per Day: ₹" + String.format("%.0f", PetrolPrices[0]));
-        PetrolPriceWeek.setText("One Week: ₹" + String.format("%.0f", PetrolPrices[1]));
-        PetrolPriceMonth.setText("A Month: ₹" + String.format("%.0f", PetrolPrices[2]));
-
-        DieselPriceDay.setText("Per Day: ₹" + String.format("%.0f", DieselPrices[0]));
-        DieselPriceWeek.setText("One Week: ₹" + String.format("%.0f", DieselPrices[1]));
-        DieselPriceMonth.setText("A Month: ₹" + String.format("%.0f", DieselPrices[2]));
-
-        petrolButton.setOnClickListener(v -> {
-            petrolPlans.setVisibility(View.VISIBLE);
-            dieselPlans.setVisibility(View.GONE);
-            hybridPlans.setVisibility(View.GONE);
-            petrolButton.setBackgroundResource(R.drawable.car_detail_spec_bg_selector);
-            dieselButton.setBackgroundResource(R.drawable.car_detailspec_bg);
-            hybridButton.setBackgroundResource(R.drawable.car_detailspec_bg);
-
-            customPetrol.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(Car_Details.this, Booking_page.class);
-                    i.putExtra("petrolPricePerDay", petrolPricePerDay);
-                    startActivity(i);
-                }
-            });
-        });
-
-        dieselButton.setOnClickListener(v -> {
-            petrolPlans.setVisibility(View.GONE);
-            dieselPlans.setVisibility(View.VISIBLE);
-            hybridPlans.setVisibility(View.GONE);
-            dieselButton.setBackgroundResource(R.drawable.car_detail_spec_bg_selector);
-            petrolButton.setBackgroundResource(R.drawable.car_detailspec_bg);
-            hybridButton.setBackgroundResource(R.drawable.car_detailspec_bg);
-
-            customDiesel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(Car_Details.this, Booking_page.class);
-                    i.putExtra("dieselPricePerDay", dieselPricePerDay);
-                    startActivity(i);
-                }
-            });
-        });
-
-        hybridButton.setOnClickListener(v -> {
-            petrolPlans.setVisibility(View.GONE);
-            dieselPlans.setVisibility(View.GONE);
-            hybridPlans.setVisibility(View.VISIBLE);
-            dieselButton.setBackgroundResource(R.drawable.car_detailspec_bg);
-            petrolButton.setBackgroundResource(R.drawable.car_detailspec_bg);
-            hybridButton.setBackgroundResource(R.drawable.car_detail_spec_bg_selector);
-        });
-
-*/
-
-
-/*
-// PETROL PRICES
-        petrolButton.setOnClickListener(view -> {
-            petrolSelect = Boolean.TRUE;
-            petrolButton.setBackgroundResource(R.drawable.car_detail_spec_bg_selector);
-            dieselButton.setBackgroundResource(R.drawable.car_detailspec_bg);
-            hybridButton.setBackgroundResource(R.drawable.car_detailspec_bg);
-
-            if (petrolSelect == Boolean.TRUE) {
-                perDayPrice.setText(" ₹" + String.format("%.0f", PetrolPrices[0]) + "\n Day");
-                plan1.setOnClickListener(view1 -> {
-
-                    plan1.setBackgroundResource(R.drawable.rentplans_selected_background);
-                    perDayClock.setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_IN);
-                    perWeekClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    perMonthClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    customClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-
-                    plan2.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan3.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan4.setBackgroundResource(R.drawable.rentplans_default_background);
-                });
-
-                perWeekPrice.setText(" ₹" + String.format("%.0f", PetrolPrices[1]) + "\n Week");
-                plan2.setOnClickListener(view1 -> {
-                    plan2.setBackgroundResource(R.drawable.rentplans_selected_background);
-
-                    perWeekClock.setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_IN);
-                    perDayClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    perMonthClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    customClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-
-                    plan1.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan3.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan4.setBackgroundResource(R.drawable.rentplans_default_background);
-                });
-
-                perMonthPrice.setText(" ₹" + String.format("%.0f", PetrolPrices[2]) + "\n Month");
-                plan3.setOnClickListener(view1 -> {
-                    plan3.setBackgroundResource(R.drawable.rentplans_selected_background);
-
-                    perMonthClock.setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_IN);
-                    perWeekClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    perDayClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    customClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-
-                    plan2.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan1.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan4.setBackgroundResource(R.drawable.rentplans_default_background);
-                });
-
-                customPrice.setOnClickListener(v -> {
-                    Intent i = new Intent(Car_Details.this, Booking_page.class);
-                    i.putExtra("petrolPricePerDay", petrolPricePerDay);
-                    startActivity(i);
-                });
-            }
-        });
-
-// PETROL PRICES
-
-// DIESEL PRICES
-        dieselButton.setOnClickListener(view -> {
-            petrolSelect = Boolean.FALSE;
-            dieselSelect = Boolean.TRUE;
-
-            dieselButton.setBackgroundResource(R.drawable.car_detail_spec_bg_selector);
-            petrolButton.setBackgroundResource(R.drawable.car_detailspec_bg);
-            hybridButton.setBackgroundResource(R.drawable.car_detailspec_bg);
-
-            if (dieselSelect == Boolean.TRUE) {
-                perDayPrice.setText(" ₹" + String.format("%.0f", DieselPrices[0]) + "\n Day");
-                plan1.setOnClickListener(view1 -> {
-
-                    plan1.setBackgroundResource(R.drawable.rentplans_selected_background);
-                    perDayClock.setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_IN);
-                    perWeekClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    perMonthClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    customClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-
-                    plan2.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan3.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan4.setBackgroundResource(R.drawable.rentplans_default_background);
-                });
-
-                perWeekPrice.setText(" ₹" + String.format("%.0f", DieselPrices[1]) + "\n Week");
-                plan2.setOnClickListener(view1 -> {
-                    plan2.setBackgroundResource(R.drawable.rentplans_selected_background);
-
-                    perWeekClock.setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_IN);
-                    perDayClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    perMonthClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    customClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-
-                    plan1.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan3.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan4.setBackgroundResource(R.drawable.rentplans_default_background);
-                });
-
-                perMonthPrice.setText(" ₹" + String.format("%.0f", DieselPrices[2]) + "\n Month");
-                plan3.setOnClickListener(view1 -> {
-                    plan3.setBackgroundResource(R.drawable.rentplans_selected_background);
-
-                    perMonthClock.setColorFilter(Color.parseColor("blue"), PorterDuff.Mode.SRC_IN);
-                    perWeekClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    perDayClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-                    customClock.setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
-
-                    plan2.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan1.setBackgroundResource(R.drawable.rentplans_default_background);
-                    plan4.setBackgroundResource(R.drawable.rentplans_default_background);
-                });
-
-                customPrice.setOnClickListener(v -> {
-                    Intent i = new Intent(Car_Details.this, Booking_page.class);
-                    i.putExtra("dieselPricePerDay", dieselPricePerDay);
-                    startActivity(i);
-                });
-            }
-        });
-
-// DIESEL PRICES
-
-        // Back button listener
-        backToLineup.setOnClickListener(view -> {
-            Intent intent = new Intent(Car_Details.this, BrandLineup_page.class);
-            startActivity(intent);
-            finish();
-        });
-
-
-        pickup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Car_Details.this, Booking_page.class);
-                startActivity(i);
-            }
-        });
-*/
