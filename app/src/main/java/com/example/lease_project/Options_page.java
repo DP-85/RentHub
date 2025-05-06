@@ -14,7 +14,7 @@ import android.widget.*;
 public class Options_page extends AppCompatActivity {
 
     ImageButton backToHome;
-    Button profileButton;
+    Button profileButton, logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class Options_page extends AppCompatActivity {
 
         backToHome = findViewById(R.id.backToHome);
         profileButton = findViewById(R.id.profileButton);
+        logout = findViewById(R.id.save_changes);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -41,10 +42,22 @@ public class Options_page extends AppCompatActivity {
             startActivity(p);
         });
 
+        logout.setOnClickListener(view -> {
+            Intent l = new Intent(Options_page.this, login_page.class);
+            startActivity(l);
+        });
+
         Button termsButton = findViewById(R.id.termsButton); // Make sure this button exists in XML
+
+        Button aboutUs = findViewById(R.id.aboutUsButton);
 
         termsButton.setOnClickListener(view -> {
             Intent I = new Intent(Options_page.this, Terms_Page.class);
+            startActivity(I);
+        });
+
+        aboutUs.setOnClickListener(view -> {
+            Intent I = new Intent(Options_page.this, AboutUs_Page.class);
             startActivity(I);
         });
     }

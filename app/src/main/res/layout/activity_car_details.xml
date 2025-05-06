@@ -21,7 +21,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/backButton"
+                android:id="@+id/backToLineupButton"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
@@ -40,7 +40,7 @@
                 android:textSize="45sp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toStartOf="@+id/detailsHomeRedirect"
-                app:layout_constraintStart_toEndOf="@+id/backButton"
+                app:layout_constraintStart_toEndOf="@+id/backToLineupButton"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
@@ -291,11 +291,11 @@
                 android:fontFamily="@font/poppinsregular"/>
 
             <RadioButton
-                android:id="@+id/hybridButton"
+                android:id="@+id/electricButton"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:text="Hybrid"
+                android:text="Electric"
                 android:textSize="15sp"
                 android:textAlignment="center"
                 android:background="@drawable/car_detailspec_bg"

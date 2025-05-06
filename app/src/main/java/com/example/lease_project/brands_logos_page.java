@@ -66,7 +66,7 @@ public class brands_logos_page extends AppCompatActivity {
         brand_names.add("Jeep");
         brand_names.add("Toyota");
         brand_names.add("Volkswagen");
-        brand_names.add("Skoda");
+        //brand_names.add("Skoda");
         brand_names.add("Hyundai");
         brand_names.add("Kia");
         brand_names.add("Honda");
@@ -84,7 +84,7 @@ public class brands_logos_page extends AppCompatActivity {
         brand_logos.add(R.drawable.jeep_logo);
         brand_logos.add(R.drawable.toyota_logo);
         brand_logos.add(R.drawable.vw_logo);
-        brand_logos.add(R.drawable.skoda_logo);
+        //brand_logos.add(R.drawable.skoda_logo);
         brand_logos.add(R.drawable.hyundai_logo);
         brand_logos.add(R.drawable.kia_logo);
         brand_logos.add(R.drawable.honda_logo);

@@ -12,24 +12,19 @@ import androidx.core.view.WindowInsetsCompat;
 import android.view.View;
 import android.widget.*;
 
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.EditText;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class home_page extends AppCompatActivity {
     Button brands_btn, allBrandsBtn;
     LinearLayout landRover, bmw, audi, volvo, mercedes;
     ImageButton profileButton, optionsButton;
     EditText searchBar;
+    TextView X1Details, XUVDetails, CherokeeDetails, cClassDetails;
+    TextView rentNow1, rentNow2, rentNow3, rentNow4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +47,16 @@ public class home_page extends AppCompatActivity {
 
         searchBar = findViewById(R.id.searchBar);
 
+        X1Details = findViewById(R.id.detailsBtnX1);
+        XUVDetails = findViewById(R.id.detailsBtnXUV700);
+        CherokeeDetails = findViewById(R.id.detailsBtnCherokee);
+        cClassDetails = findViewById(R.id.detailsBtnCClass);
+
+        rentNow1 = findViewById(R.id.rentNowBtn1);
+        rentNow2 = findViewById(R.id.rentNowBtn2);
+        rentNow3 = findViewById(R.id.rentNowBtn3);
+        rentNow4 = findViewById(R.id.rentNowBtn4);
+
         brands.add("BMW");
         brands.add("Audi");
         brands.add("Mercedes");
@@ -60,7 +65,7 @@ public class home_page extends AppCompatActivity {
         brands.add("Jeep");
         brands.add("Toyota");
         brands.add("Volkswagen");
-        brands.add("Skoda");
+        //brands.add("Skoda");
         brands.add("Hyundai");
         brands.add("Kia");
         brands.add("Honda");
@@ -110,6 +115,44 @@ public class home_page extends AppCompatActivity {
             }
         });
 
+
+        X1Details.setOnClickListener(view -> {
+            openCarDetails("BMW", "BMW X1".trim());
+        });
+
+        XUVDetails.setOnClickListener(view -> {
+            openCarDetails("Mahindra", "Mahindra XUV700".trim());
+        });
+
+        CherokeeDetails.setOnClickListener(view -> {
+            openCarDetails("Jeep", "Jeep Grand Cherokee".trim());
+        });
+
+        cClassDetails.setOnClickListener(view -> {
+            openCarDetails("Mercedes", "Mercedes-Benz C-Class".trim());
+        });
+
+
+        rentNow1.setOnClickListener(view -> {
+            Intent i = new Intent(home_page.this, RentNowPage.class);
+            startActivity(i);
+        });
+
+        rentNow2.setOnClickListener(view -> {
+            Intent i = new Intent(home_page.this, RentNowPage.class);
+            startActivity(i);
+        });
+
+        rentNow3.setOnClickListener(view -> {
+            Intent i = new Intent(home_page.this, RentNowPage.class);
+            startActivity(i);
+        });
+
+        rentNow4.setOnClickListener(view -> {
+            Intent i = new Intent(home_page.this, RentNowPage.class);
+            startActivity(i);
+        });
+
 // FUNCTIONS ATTACHED TO EACH LAYOUT IN ORDER TO OPEN A SPECIFIC BRAND LINEUP PAGE
         landRover.setOnClickListener(view -> openBrandLineup("Land Rover"));
         bmw.setOnClickListener(view -> openBrandLineup("BMW"));
@@ -126,7 +169,6 @@ public class home_page extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
 // FUNCTION DEFINITION TO OPEN A SPECIFIC BRAND LINEUP PAGE
@@ -136,5 +178,39 @@ public class home_page extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-}
 
+    private void openCarDetails(String brandName, String carName) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("Cars")
+                .document(brandName)
+                .collection("cars")
+                .document(carName)
+                .get()
+                .addOnSuccessListener(doc -> {
+                    if (doc.exists()) {
+                        Intent intent = new Intent(home_page.this, Car_Details.class);
+                        intent.putExtra("carName", carName);
+                        intent.putExtra("carImage", doc.getString("Image"));
+                        intent.putExtra("Transmission", doc.getString("Transmission"));
+                        intent.putExtra("FuelType", doc.getString("Fuel Type"));
+                        intent.putExtra("Seating", doc.getString("Seating") + " Seater");
+                        intent.putExtra("Max Speed", doc.getString("Max Speed"));
+                        intent.putExtra("Engine", doc.getString("Engine"));
+
+                        // Send prices safely
+                        Double petrolPrice = doc.getDouble("Petrol Price");
+                        Double dieselPrice = doc.getDouble("Diesel Price");
+                        intent.putExtra("Petrol Price", petrolPrice != null ? petrolPrice : 0.0);
+                        intent.putExtra("Diesel Price", dieselPrice != null ? dieselPrice : 0.0);
+
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(this, "Car not found", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error loading car details", Toast.LENGTH_SHORT).show();
+                });
+    }
+}

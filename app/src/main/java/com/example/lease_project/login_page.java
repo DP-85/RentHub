@@ -1,6 +1,7 @@
 package com.example.lease_project;
 
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -28,6 +29,7 @@ public class login_page extends AppCompatActivity {
     EditText login_email, login_password;
     Button signup_redirect, login_button, forgot_password;
     FirebaseAuth fauth;
+    ImageButton btn1, btn2, btn3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,10 @@ public class login_page extends AppCompatActivity {
         login_button = findViewById(R.id.login_button);
         forgot_password = findViewById(R.id.forgot_password);
 
+        btn1 = findViewById(R.id.imageButton);
+        btn2 = findViewById(R.id.imageButton2);
+        btn3 = findViewById(R.id.imageButton3);
+
         fauth = FirebaseAuth.getInstance();
 
         //Ignore this bit
@@ -48,6 +54,25 @@ public class login_page extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        btn1.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://www.facebook.com/share/1KTvZjTm8b/?mibextid=wwXIfr"));
+            startActivity(intent);
+        });
+
+        btn2.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://www.instagram.com/carwaleindia?igsh=bHdwOGp5anl5aTV1"));
+            startActivity(intent);
+        });
+
+        btn3.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://www.carwale.com/"));
+            startActivity(intent);
+        });
+
 
         signup_redirect.setOnClickListener(view -> {
             Intent sp = new Intent(login_page.this, signup_page.class);

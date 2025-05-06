@@ -319,7 +319,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingStart="10dp"
-                    android:text="BMW iX1 LWB"
+                    android:text="BMW X1 LWB"
                     android:textSize="16.5sp"
                     android:fontFamily="@font/poppinsbold"
                     app:layout_constraintStart_toStartOf="@id/carcardConstraint1"
@@ -332,7 +332,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:paddingStart="10dp"
-                    android:text="Electric  |  Automatic  |  5-Seater"
+                    android:text="Petrol/Diesel  |  Automatic  |  5-Seater"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="16sp"
                     android:fontFamily="@font/poppinsmedium"
@@ -340,7 +340,7 @@
                     app:layout_constraintTop_toBottomOf="@id/carTitle1" />
 
                 <TextView
-                    android:id="@+id/detailsBtn1"
+                    android:id="@+id/detailsBtnX1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -373,7 +373,7 @@
                     android:fontFamily="@font/poppinsmedium"
                     app:layout_constraintStart_toStartOf="@id/carcardConstraint1"
                     app:layout_constraintTop_toBottomOf="@id/carDetails1"
-                    app:layout_constraintEnd_toStartOf="@id/detailsBtn1"
+                    app:layout_constraintEnd_toStartOf="@id/detailsBtnX1"
                     app:layout_constraintBottom_toBottomOf="@id/carcardConstraint1"
                     />
 
@@ -436,7 +436,7 @@
                     app:layout_constraintTop_toBottomOf="@id/carTitle2" />
 
                 <TextView
-                    android:id="@+id/detailsBtn2"
+                    android:id="@+id/detailsBtnXUV700"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -469,7 +469,7 @@
                     android:fontFamily="@font/poppinsmedium"
                     app:layout_constraintStart_toStartOf="@id/carcardConstraint2"
                     app:layout_constraintTop_toBottomOf="@id/carDetails2"
-                    app:layout_constraintEnd_toStartOf="@id/detailsBtn2"
+                    app:layout_constraintEnd_toStartOf="@id/detailsBtnXUV700"
                     app:layout_constraintBottom_toBottomOf="@id/carcardConstraint2"
                     />
 
@@ -503,7 +503,7 @@
                     android:layout_height="170dp"
                     android:layout_marginHorizontal="5dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/bmw_ix1"
+                    android:src="@drawable/grandcherokee"
                     android:elevation="10dp"
                     app:layout_constraintEnd_toEndOf="@id/carcardConstraint3"
                     app:layout_constraintStart_toStartOf="@id/carcardConstraint3"
@@ -516,7 +516,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingStart="10dp"
-                    android:text="BMW iX1 LWB"
+                    android:text="Jeep Grand Cherokee"
                     android:textSize="16.5sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/poppinsbold"
@@ -530,7 +530,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:paddingStart="10dp"
-                    android:text="Electric  |  Automatic  |  5-Seater"
+                    android:text="Petrol  |  Automatic  |  5-Seater"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="16sp"
                     android:fontFamily="@font/poppinsmedium"
@@ -538,7 +538,7 @@
                     app:layout_constraintTop_toBottomOf="@id/carTitle3" />
 
                 <TextView
-                    android:id="@+id/detailsBtn3"
+                    android:id="@+id/detailsBtnCherokee"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -571,7 +571,7 @@
                     android:fontFamily="@font/poppinsmedium"
                     app:layout_constraintStart_toStartOf="@id/carcardConstraint3"
                     app:layout_constraintTop_toBottomOf="@id/carDetails3"
-                    app:layout_constraintEnd_toStartOf="@id/detailsBtn3"
+                    app:layout_constraintEnd_toStartOf="@id/detailsBtnCherokee"
                     app:layout_constraintBottom_toBottomOf="@id/carcardConstraint3"
                     />
 
@@ -579,6 +579,106 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/CarCard4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="5dp"
+            app:cardCornerRadius="10dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/CarCard3"
+            app:layout_constraintStart_toStartOf="@id/vertical_guideline_start"
+            app:layout_constraintEnd_toEndOf="@id/vertical_guideline_end"
+            android:background="@color/grey">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/carcardConstraint4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                >
+
+                <ImageView
+                    android:id="@+id/carImage4"
+                    android:layout_width="0dp"
+                    android:layout_height="170dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/cclass"
+                    android:elevation="10dp"
+                    app:layout_constraintEnd_toEndOf="@id/carcardConstraint4"
+                    app:layout_constraintStart_toStartOf="@id/carcardConstraint4"
+                    app:layout_constraintTop_toTopOf="@id/carcardConstraint4"
+                    />
+
+                <TextView
+                    android:id="@+id/carTitle4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:text="Mercedes-Benz C-Class"
+                    android:textSize="16.5sp"
+                    android:fontFamily="@font/poppinsbold"
+                    app:layout_constraintStart_toStartOf="@id/carcardConstraint4"
+                    app:layout_constraintEnd_toEndOf="@id/carcardConstraint4"
+                    app:layout_constraintTop_toBottomOf="@id/carImage4" />
+
+                <TextView
+                    android:id="@+id/carDetails4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:paddingStart="10dp"
+                    android:text="Petrol/Diesel  |  Automatic  |  5-Seater"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppinsmedium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/carTitle4" />
+
+                <TextView
+                    android:id="@+id/detailsBtnCClass"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Details"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    android:background="@drawable/button_bg"
+                    android:fontFamily="@font/poppinsmedium"
+                    app:layout_constraintEnd_toEndOf="@id/carcardConstraint4"
+                    app:layout_constraintTop_toBottomOf="@id/carDetails4"
+                    app:layout_constraintStart_toEndOf="@id/rentNowBtn4"
+                    />
+
+                <TextView
+                    android:id="@+id/rentNowBtn4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="Rent Now"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_bg"
+                    android:fontFamily="@font/poppinsmedium"
+                    app:layout_constraintStart_toStartOf="@id/carcardConstraint4"
+                    app:layout_constraintTop_toBottomOf="@id/carDetails4"
+                    app:layout_constraintEnd_toStartOf="@id/detailsBtnCClass"
+                    app:layout_constraintBottom_toBottomOf="@id/carcardConstraint4"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <View
             android:id="@+id/bottomLine"
@@ -588,7 +688,7 @@
             android:background="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/CarCard3"
+            app:layout_constraintTop_toBottomOf="@id/CarCard4"
             />
 
         <TextView

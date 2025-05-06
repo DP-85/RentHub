@@ -24,18 +24,20 @@ public class brandLineup_adapter extends RecyclerView.Adapter<brandLineup_adapte
     List<String> Transmission, FuelType;
     List<String> Seating, MaxSpeed, Engine;
     List<Double> PetrolPrice, DieselPrice;
+    String brandName;
+
 
     // Constructor to initialize all lists and context
-    public brandLineup_adapter(Context context, List<String> carNames, List<String> carDetails, List<String> carImages,
+    public brandLineup_adapter(Context context, String brandName, List<String> carNames, List<String> carDetails, List<String> carImages,
                                List<String> Transmission, List<String> FuelType, List<String> Seating, List<String> MaxSpeed, List<String> Engine,
                                List<Double> PetrolPrice, List<Double> DieselPrice) {
 
+        this.brandName = brandName;
         this.carNames = carNames;
         this.carDetails = carDetails;
         this.carImages = carImages;
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-
         this.Transmission = Transmission;
         this.FuelType = FuelType;
         this.Seating = Seating;
@@ -81,9 +83,17 @@ public class brandLineup_adapter extends RecyclerView.Adapter<brandLineup_adapte
             intent.putExtra("Petrol Price", PetrolPrice.get(position));
             intent.putExtra("Diesel Price", DieselPrice.get(position));
 
+            intent.putExtra("brandName", brandName);
+
             // Start Car_Details activity
             view.getContext().startActivity(intent);
         });
+
+        holder.rentnowButton.setOnClickListener(view -> {
+            Intent i = new Intent(view.getContext(), RentNowPage.class);
+            view.getContext().startActivity(i);
+        });
+
     }
 
     // Tells the RecyclerView how many items are in the list
@@ -95,7 +105,7 @@ public class brandLineup_adapter extends RecyclerView.Adapter<brandLineup_adapte
     // ViewHolder class holds references to the views in each item layout
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView carnames, cardetails, detailButton;
+        TextView carnames, cardetails, detailButton, rentnowButton;
         ImageView carImage;
 
         public ViewHolder(@NonNull View itemView) {
@@ -106,6 +116,7 @@ public class brandLineup_adapter extends RecyclerView.Adapter<brandLineup_adapte
             cardetails = itemView.findViewById(R.id.carDetails);
             carImage = itemView.findViewById(R.id.carImage);
             detailButton = itemView.findViewById(R.id.btnDetails); // It's a TextView styled like a button
+            rentnowButton = itemView.findViewById(R.id.btnRentNow);
         }
     }
 }

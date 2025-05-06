@@ -14,6 +14,7 @@ import android.widget.*;
 import android.content.Intent;
 
 public class Confirmation_page extends AppCompatActivity {
+
     TextView pickupDate, returnDate, brand_name, car_name, total_days, base_price, chauffeur, boosterSeat, organizers, tyreInflator, topBox, totalPrice;
     TextView card, upi, installments, cod;
     ImageButton homeButton;
@@ -45,13 +46,12 @@ public class Confirmation_page extends AppCompatActivity {
         cod = findViewById(R.id.cod);
 
         homeButton = findViewById(R.id.homeButton);
-
         payButton = findViewById(R.id.paymentButton);
 
+        // Payment button click listeners
         card.setOnClickListener(view -> {
             highlightpayment(card, "Card");
             payButton.setText("Pay with Card");
-
             payButton.setOnClickListener(v -> {
                 CardBottomSheet bottomSheet = new CardBottomSheet();
                 bottomSheet.show(getSupportFragmentManager(), "CardBottomSheet");
@@ -61,120 +61,99 @@ public class Confirmation_page extends AppCompatActivity {
         upi.setOnClickListener(view -> {
             highlightpayment(upi, "UPI");
             payButton.setText("Pay with UPI");
-
+            // Inside your UPI button click:
             payButton.setOnClickListener(v -> {
-                UpiBottomSheet upibottomSheet = new UpiBottomSheet();
-                upibottomSheet.show(getSupportFragmentManager(), "UpiBottomSheet");
+                String amountText = totalPrice.getText().toString().replace("Total Amount : ", "").replace("₹", "").trim();
+                UpiBottomSheet upiBottomSheet = new UpiBottomSheet(amountText);
+                upiBottomSheet.show(getSupportFragmentManager(), "UpiBottomSheet");
             });
+
         });
 
         installments.setOnClickListener(view -> {
             highlightpayment(installments, "Installments");
-            payButton.setText("Pay in installments");
+            payButton.setText("Pay in Installments");
+            payButton.setOnClickListener(view1 -> {
+                InstallmentsBottomSheet installmentsBottomSheet = new InstallmentsBottomSheet();
+                installmentsBottomSheet.show(getSupportFragmentManager(), "InstallmentsBottomSheet");
+            });
         });
 
         cod.setOnClickListener(view -> {
             highlightpayment(cod, "COD");
             payButton.setText("Pay with COD");
-
             payButton.setOnClickListener(v -> {
                 Intent i = new Intent(Confirmation_page.this, Final_page.class);
                 startActivity(i);
             });
         });
 
-        // Storing brand name (Make sure this runs before trying to retrieve)
-        SharedPreferences sharedPreferences = getSharedPreferences("OrderSummaryBL", MODE_PRIVATE);
-        SharedPreferences.Editor editorBL = sharedPreferences.edit();
+        // Receiving SharedPreferences for brand, car name, etc.
+        SharedPreferences sharedPreferencesBL = getSharedPreferences("OrderSummaryBL", MODE_PRIVATE);
+        SharedPreferences sharedPreferencesBP = getSharedPreferences("OrderSummaryBP", MODE_PRIVATE);
+        SharedPreferences sharedPreferencesCD = getSharedPreferences("OrderSummaryCD", MODE_PRIVATE);
 
-        String BrandName = sharedPreferences.getString("BrandName", "N/A");
+        String BrandName = getIntent().getStringExtra("brandName");
+        String Days = sharedPreferencesBP.getString("Days", "N/A");
+        String Price = sharedPreferencesBP.getString("Price", "N/A");
+        String carName = sharedPreferencesCD.getString("CarName", "N/A");
 
-        SharedPreferences sharedPreferences2 = getSharedPreferences("OrderSummaryBP", MODE_PRIVATE);
-        String Days = sharedPreferences2.getString("Days", "N/A");
-        String Price = sharedPreferences2.getString("Price", "N/A");
-
-        SharedPreferences sharedPreferences3 = getSharedPreferences("OrderSummaryCD", MODE_PRIVATE);
-        String carName = sharedPreferences3.getString("CarName", "N/A");
-
-        SharedPreferences sharedPreferences4 = getSharedPreferences("OrderSummaryEP", MODE_PRIVATE);
-        String extra1 = sharedPreferences4.getString("Extra1", "None");
-        String extra2 = sharedPreferences4.getString("Extra2", "None");
-        String extra3 = sharedPreferences4.getString("Extra3", "None");
-        String extra4 = sharedPreferences4.getString("Extra4", "None");
-        String extra5 = sharedPreferences4.getString("Extra5", "None");
-
-// Combine selected extras into one string
-        String Chauffeur = "";
-        String BoosterSeat = "";
-        String TyreInflator = "";
-        String TopBox = "";
-        String Organizers = "";
-        if (!extra1.isEmpty()) Chauffeur += extra1 + "\n";
-        if (!extra2.isEmpty()) BoosterSeat += extra2 + "\n";
-        if (!extra3.isEmpty()) TyreInflator += extra3 + "\n";
-        if (!extra4.isEmpty()) TopBox += extra4 + "\n";
-        if (!extra5.isEmpty()) Organizers += extra5 + "\n";
-
+        // Receiving dates and extras from intent
         String pickupdate = getIntent().getStringExtra("pickupDate");
         String returndate = getIntent().getStringExtra("returnDate");
 
-        // Calculate total extras
-        int extrasTotal = 0;
-        try {
-            if (extra1 != null && !extra1.equals("None")) extrasTotal += Integer.parseInt(extra1);
-            if (extra2 != null && !extra2.equals("None")) extrasTotal += Integer.parseInt(extra2);
-            if (extra3 != null && !extra3.equals("None")) extrasTotal += Integer.parseInt(extra3);
-            if (extra4 != null && !extra4.equals("None")) extrasTotal += Integer.parseInt(extra4);
-            if (extra5 != null && !extra5.equals("None")) extrasTotal += Integer.parseInt(extra5);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+        int extra1 = getIntent().getIntExtra("Extra1", 0);
+        int extra2 = getIntent().getIntExtra("Extra2", 0);
+        int extra3 = getIntent().getIntExtra("Extra3", 0);
+        int extra4 = getIntent().getIntExtra("Extra4", 0);
+        int extra5 = getIntent().getIntExtra("Extra5", 0);
 
-// Convert base price to integer
-        int basePrice = 0;
+        // Convert base price from SharedPreferences safely
+        double basePrice = 0;
         try {
-            basePrice = Integer.parseInt(Price);
+            basePrice = Double.parseDouble(Price.replaceAll("[^0-9.]", ""));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-// Total Price = Base + Extras
-        int finalTotal = basePrice + extrasTotal;
+        // Calculate total extra cost
+        int extrasTotal = extra1 + extra2 + extra3 + extra4 + extra5;
 
-// Show in TextView
-        totalPrice.setText("Total Amount : " + finalTotal + " ₹");
+        // Calculate final total
+        double finalTotal = basePrice + extrasTotal + 5000;
 
-
-// Show in TextView
-        totalPrice.setText("Total Amount : " + finalTotal + " ₹");
-
-
-// Set text in TextView
-
+        // Set pickup and return dates
         pickupDate.setText(pickupdate);
         returnDate.setText(returndate);
+
+        // Set brand, car, days and base price
         brand_name.setText(" Brand                 : " + BrandName);
         car_name.setText(" Car                      : " + carName);
         total_days.setText(" Total Days          : " + Days);
-        base_price.setText(" Base Price          : " + Price);
-        chauffeur.setText(" Cheuffeur          : " + Chauffeur);
-        boosterSeat.setText(" Booster Seat    : " + BoosterSeat);
-        tyreInflator.setText(" Tyre Inflator : " + TyreInflator);
-        topBox.setText(" Top Box : " + TopBox);
-        organizers.setText(" Organizers : " + Organizers);
+        base_price.setText(" Base Price          : " + basePrice + " ₹");
 
+        // Set extras
+        chauffeur.setText(extra1 != 0 ? " Chauffeur          : 200 ₹" : " Chauffeur          : None");
+        boosterSeat.setText(extra2 != 0 ? " Booster Seat    : 700 ₹" : " Booster Seat    : None");
+        tyreInflator.setText(extra3 != 0 ? " Tyre Inflator  : 400 ₹" : " Tyre Inflator : None");
+        topBox.setText(extra4 != 0 ? " Top Box             : 1400 ₹" : " Top Box             : None");
+        organizers.setText(extra5 != 0 ? " Organizers         : 1400 ₹" : " Organizers         : None");
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        // Set final total price
+        totalPrice.setText("Total Amount : " + finalTotal + " ₹");
 
+        // Home button redirect
         homeButton.setOnClickListener(view -> {
             Intent i = new Intent(Confirmation_page.this, home_page.class);
             startActivity(i);
         });
 
+        // Handle window inset padding
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
     }
 
     private void highlightpayment(TextView textView, String paymentMethod) {

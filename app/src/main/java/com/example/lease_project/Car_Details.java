@@ -18,16 +18,16 @@ public class Car_Details extends AppCompatActivity {
 
     // UI Components
     ImageButton backToLineup, backToHome;
-    RadioButton petrolButton, dieselButton, hybridButton;
+    RadioButton petrolButton, dieselButton, electricButton;
     ImageView carImageView;
     TextView carSeating, carTransmission, carFuelType, carMaxSpeed, carEngine, carNameTextView, perDayPrice, perWeekPrice, perMonthPrice, customPrice;
     Button pickup;
     ImageView Clock1, Clock2, Clock3, Clock4;
     CardView plan1, plan2, plan3, plan4;
-
+    String BrandName;
     // Variables to track prices and selection
-    Double PetrolPrice, DieselPrice, selectedPrice = 0.0, days = 0.0;
-    Boolean petrolSelect = Boolean.TRUE , dieselSelect = Boolean.FALSE;
+    Double PetrolPrice, DieselPrice, ElectricPrice, selectedPrice = 0.0, days = 0.0;
+    Boolean petrolSelect = Boolean.TRUE , dieselSelect = Boolean.FALSE, electricSelect = Boolean.FALSE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +44,7 @@ public class Car_Details extends AppCompatActivity {
 
         // Navigation Buttons
         backToHome = findViewById(R.id.detailsHomeRedirect);
-        backToLineup = findViewById(R.id.backButton);
-
-        // Back to car lineup page
-        backToLineup.setOnClickListener(view -> {
-            Intent lineup = new Intent(Car_Details.this, BrandLineup_page.class);
-            startActivity(lineup);
-            finish();
-        });
+        backToLineup = findViewById(R.id.backToLineupButton);
 
         // Back to home page
         backToHome.setOnClickListener(view -> {
@@ -67,7 +60,7 @@ public class Car_Details extends AppCompatActivity {
         // Initialize UI components
         petrolButton = findViewById(R.id.petrolButton);
         dieselButton = findViewById(R.id.dieselButton);
-        hybridButton = findViewById(R.id.hybridButton);
+        electricButton = findViewById(R.id.electricButton);
 
         carImageView = findViewById(R.id.carImage);
         carNameTextView = findViewById(R.id.carName);
@@ -94,6 +87,12 @@ public class Car_Details extends AppCompatActivity {
         String carName = getIntent().getStringExtra("carName");
         String carengine = getIntent().getStringExtra("Engine");
         String carImage = getIntent().getStringExtra("carImage");
+        BrandName = getIntent().getStringExtra("brandName");
+
+        // Back to car lineup page
+        backToLineup.setOnClickListener(view -> {
+            openBrandLineup(BrandName);
+        });
 
         // Set values to the UI
         carNameTextView.setText(carName);
@@ -123,10 +122,12 @@ public class Car_Details extends AppCompatActivity {
         // Get petrol and diesel prices from intent
         Double petrolPricePerDay = getIntent().getDoubleExtra("Petrol Price", 0);
         Double dieselPricePerDay = getIntent().getDoubleExtra("Diesel Price", 0);
+        Double electricPricePerDay = getIntent().getDoubleExtra("Electric Price", 0);
 
         // Calculate weekly and monthly prices using helper function
         double PetrolPrices[] = calculateRentalPricing(petrolPricePerDay);
         double DieselPrices[] = calculateRentalPricing(dieselPricePerDay);
+        double ElectricPrices[] = calculateRentalPricing(electricPricePerDay);
 
         // ========== PETROL BUTTON ==========
         petrolButton.setOnClickListener(view -> {
@@ -136,6 +137,7 @@ public class Car_Details extends AppCompatActivity {
             // Change button background colors to indicate selection
             petrolButton.setBackgroundResource(R.drawable.car_detail_spec_bg_selector);
             dieselButton.setBackgroundResource(R.drawable.car_detailspec_bg);
+            electricButton.setBackgroundResource(R.drawable.car_detailspec_bg);
 
             // Set petrol prices on the UI
             perDayPrice.setText(" ₹" + String.format("%.0f", PetrolPrices[0]) + "\n Day");
@@ -179,6 +181,7 @@ public class Car_Details extends AppCompatActivity {
             // Update selection UI
             dieselButton.setBackgroundResource(R.drawable.car_detail_spec_bg_selector);
             petrolButton.setBackgroundResource(R.drawable.car_detailspec_bg);
+            electricButton.setBackgroundResource(R.drawable.car_detailspec_bg);
 
             // Set diesel prices
             perDayPrice.setText(" ₹" + String.format("%.0f", DieselPrices[0]) + "\n Day");
@@ -214,6 +217,51 @@ public class Car_Details extends AppCompatActivity {
             });
         });
 
+        electricButton.setOnClickListener(view -> {
+            petrolSelect = true;
+            dieselSelect = false;
+
+            // Change button background colors to indicate selection
+            electricButton.setBackgroundResource(R.drawable.car_detail_spec_bg_selector);
+            dieselButton.setBackgroundResource(R.drawable.car_detailspec_bg);
+            petrolButton.setBackgroundResource(R.drawable.car_detailspec_bg);
+
+
+            // Set petrol prices on the UI
+            perDayPrice.setText(" ₹" + String.format("%.0f", ElectricPrices[0]) + "\n Day");
+            perWeekPrice.setText(" ₹" + String.format("%.0f", ElectricPrices[1]) + "\n Week");
+            perMonthPrice.setText(" ₹" + String.format("%.0f", ElectricPrices[2]) + "\n Month");
+
+            // Plan 1 - Daily
+            plan1.setOnClickListener(view1 -> {
+                selectedPrice = ElectricPrices[0];
+                days = 1.0;
+                highlightPlan(plan1, Clock1);
+            });
+
+            // Plan 2 - Weekly
+            plan2.setOnClickListener(view1 -> {
+                selectedPrice = ElectricPrices[1];
+                days = 7.0;
+                highlightPlan(plan2, Clock2);
+            });
+
+            // Plan 3 - Monthly
+            plan3.setOnClickListener(view1 -> {
+                selectedPrice = ElectricPrices[2];
+                days = 30.0;
+                highlightPlan(plan3, Clock3);
+            });
+
+            // Plan 4 - Custom (currently treated same as daily)
+            plan4.setOnClickListener(view1 -> {
+                selectedPrice = ElectricPrices[0];
+                days = -1.0; // special value for custom
+                highlightPlan(plan4, Clock4);
+            });
+        });
+
+
         // ========== PICKUP BUTTON ==========
         // Sends selected price and plan duration to next page
         pickup.setOnClickListener(view -> {
@@ -221,6 +269,8 @@ public class Car_Details extends AppCompatActivity {
                 Intent intent = new Intent(Car_Details.this, Booking_page.class);
                 intent.putExtra("selectedPrice", selectedPrice);
                 intent.putExtra("days", days);
+                intent.putExtra("carName", carName);
+                intent.putExtra("brandName", BrandName);
                 startActivity(intent);
             } else {
                 Toast.makeText(Car_Details.this, "Please select a plan first!", Toast.LENGTH_SHORT).show();
@@ -257,4 +307,12 @@ public class Car_Details extends AppCompatActivity {
         double monthlyPrice = (dailyPrice * 30) * 0.75;
         return new double[]{dailyPrice, weeklyPrice, monthlyPrice};
     }
+
+    private void openBrandLineup(String brandName) {
+        Intent intent = new Intent(Car_Details.this, BrandLineup_page.class);
+        intent.putExtra("brandName", brandName);
+        startActivity(intent);
+        finish(); // optional, if you don't want users to return to Car_Details on back press
+    }
+
 }
